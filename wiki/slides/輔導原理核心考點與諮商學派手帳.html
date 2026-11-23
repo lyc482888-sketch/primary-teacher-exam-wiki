@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>輔導原理核心考點與諮商學派手帳 | 國小教甄 LLM Wiki</title>
+  <style>
+    :root {
+      /* 輔導諮商清爽鼠尾草綠與薰衣草療癒風格 */
+      --bg-cream: #F4F8F6;
+      --card-white: #FFFFFF;
+      --primary-green: #235A43;
+      --primary-slate: #2C3E50;
+      --accent-mint: #0F766E;
+      --accent-mint-soft: #E6F4F1;
+      --accent-lavender: #6D28D9;
+      --accent-lavender-soft: #F3E8FF;
+      --accent-amber: #D97706;
+      --accent-amber-soft: #FEF3C7;
+      --accent-blue: #0284C7;
+      --accent-blue-soft: #E0F2FE;
+      --text-dark: #1F2937;
+      --text-sub: #4B5563;
+      --border-soft: #D1D5DB;
+      --shadow-pastel: 0 16px 36px -10px rgba(35, 90, 67, 0.20);
+      --shadow-card: 0 6px 16px -3px rgba(35, 90, 67, 0.08);
+      --radius-large: 26px;
+      --radius-card: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 40%, #E0F2F1 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .deck-stage {
+      width: 100%;
+      max-width: 1120px;
+      aspect-ratio: 16 / 9;
+      min-height: 640px;
+      background: var(--card-white);
+      border-radius: var(--radius-large);
+      box-shadow: var(--shadow-pastel);
+      border: 3px solid #FFFFFF;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .deck-header {
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 10;
+    }
+
+    .deck-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: var(--accent-mint-soft);
+      color: var(--accent-mint);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .deck-indicator {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+      background: #F3F4F6;
+      padding: 4px 14px;
+      border-radius: 12px;
+    }
+
+    .slide {
+      flex: 1;
+      padding: 28px 48px;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .slide-title-group {
+      margin-bottom: 20px;
+    }
+
+    .slide-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-mint);
+      letter-spacing: 1.2px;
+      margin-bottom: 4px;
+    }
+
+    .slide-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-green);
+      line-height: 1.3;
+    }
+
+    .slide-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      padding: 18px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-mint {
+      border-top: 4px solid var(--accent-mint);
+      background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 35%);
+    }
+
+    .card-lavender {
+      border-top: 4px solid var(--accent-lavender);
+      background: linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 35%);
+    }
+
+    .card-amber {
+      border-top: 4px solid var(--accent-amber);
+      background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 35%);
+    }
+
+    .card-blue {
+      border-top: 4px solid var(--accent-blue);
+      background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 35%);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--primary-green);
+    }
+
+    .card-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .card-content {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+
+    .point-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .point-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .point-list li::before {
+      content: "➔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent-mint);
+      font-size: 11px;
+    }
+
+    .formula-box {
+      background: #F8FAFC;
+      border: 1px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #0F172A;
+      margin-top: 6px;
+    }
+
+    .formula-tag {
+      font-weight: 800;
+      color: var(--accent-lavender);
+      margin-right: 6px;
+    }
+
+    .tag-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      background: #F3F4F6;
+      color: #374151;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .deck-footer {
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      background: #FAFDFB;
+      z-index: 10;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: var(--primary-green);
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: #1B4533;
+      transform: translateY(-1px);
+    }
+
+    .btn-sub {
+      background: #E5E7EB;
+      color: #374151;
+    }
+
+    .btn-sub:hover {
+      background: #D1D5DB;
+    }
+
+    .shortcuts-hint {
+      font-size: 12px;
+      color: #9CA3AF;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-stage" id="deckStage">
+    <!-- 頂部資訊列 -->
+    <div class="deck-header">
+      <div class="deck-badge">
+        <span>🌱</span>
+        <span>國小教甄教育專業 · 輔導原理與實務</span>
+      </div>
+      <div class="deck-indicator" id="slideIndicator">Slide 1 / 10</div>
+    </div>
+
+    <!-- 投影片 1：封面 -->
+    <div class="slide active" id="slide-1" style="justify-content: center; align-items: center; text-align: center; gap: 18px;">
+      <div style="font-size: 54px; filter: drop-shadow(0 6px 12px rgba(35, 90, 67, 0.25));">🌱</div>
+      <div>
+        <h1 style="font-size: 34px; font-weight: 900; color: var(--primary-green); letter-spacing: -0.5px; margin-bottom: 8px;">
+          輔導原理核心考點與諮商學派手帳
+        </h1>
+        <p style="font-size: 16px; color: var(--text-sub); max-width: 680px; margin: 0 auto; line-height: 1.6;">
+          精煉 Sharon 筆記 79 頁精華 · 經典諮商學派 · 認知行為 · 後現代 SFBT · 客體關係依附 · 犯罪社會學與法規數字庫
+        </p>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px;">
+        <span class="deck-badge" style="background:#DCFCE7; color:#166534;">三大態度</span>
+        <span class="deck-badge" style="background:#F3E8FF; color:#6B21A8;">WDEP 歷程</span>
+        <span class="deck-badge" style="background:#FEF3C7; color:#92400E;">SFBT 奇蹟問句</span>
+        <span class="deck-badge" style="background:#E0F2FE; color:#0369A1;">分離個體化</span>
+        <span class="deck-badge" style="background:#FFE4E6; color:#9F1239;">社會鍵依奉參信</span>
+      </div>
+    </div>
+
+    <!-- 投影片 2：經典諮商四大學派對照 -->
+    <div class="slide" id="slide-2">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">CLASSICAL COUNSELING THEORIES</div>
+        <div class="slide-title">經典諮商四大學派：人性觀與核心技術</div>
+        <div class="slide-desc">精神分析、阿德勒個體心理學、羅吉斯個人中心與完形治療四大基石</div>
+      </div>
+      <div class="grid-2">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">Freud 精神分析學派</span>
+            <span class="card-pill" style="color:#0F766E;">潛意識驅力</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>人性觀</strong>：決定論、受生物本能（性與攻擊）及六歲前童年經驗決定。</li>
+            <li><strong>核心結構</strong>：意識／前意識／潛意識；本我（快樂）、自我（現實）、超我（道德）。</li>
+            <li><strong>治療目標</strong>：<strong>將潛意識化為意識</strong>，並增強自我功能。</li>
+            <li><strong>核心技術</strong>：自由聯想、夢的解析、抗拒與移情分析、維持分析架構。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Adler 個體心理學</span>
+            <span class="card-pill" style="color:#6D28D9;">現代自我心理學之父</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>人性觀</strong>：目的論、主觀創造、人是命運主宰者，克服天生自卑感追求卓越。</li>
+            <li><strong>核心概念</strong>：生活風格（4~5歲形成）、社會興趣（健康指標）、家庭星座出生序。</li>
+            <li><strong>生活型態</strong>：卓越型、控制型、舒適型、任意取悅型。</li>
+            <li><strong>必背技術</strong>：<strong>湯中吐口水法</strong>（揭穿不良動機）、按鈕技術、假如我能夠扮演。</li>
+          </ul>
+        </div>
+
+        <div class="card card-blue">
+          <div class="card-header">
+            <span class="card-title">Rogers 個人中心治療</span>
+            <span class="card-pill" style="color:#0284C7;">現象學與人本主義</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>人性觀</strong>：人性向善、具有實現傾向與自我導向積極潛能。</li>
+            <li><strong>核心理念</strong>：<strong>關心人而非問題</strong>，促進現實我與理想我趨於一致。</li>
+            <li><strong>三大態度（充分必要條件）</strong>：
+              <div class="formula-box">
+                <span class="formula-tag">必考心法</span>
+                1. <strong>真誠一致（Congruence）</strong><br>
+                2. <strong>無條件正向關懷（Acceptance）</strong><br>
+                3. <strong>正確同理心瞭解（Empathy）</strong>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-header">
+            <span class="card-title">Perls 完形治療法</span>
+            <span class="card-pill" style="color:#D97706;">此時此刻與覺察</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>核心原則</strong>：<strong>此時此刻（Here and Now）</strong>、場地理論、影像形成歷程。</li>
+            <li><strong>未竟事物</strong>：壓抑情感干擾當下，形成心理僵局（Impasse）。</li>
+            <li><strong>洋蔥五層</strong>：虛假 ➔ 恐懼 ➔ 僵局 ➔ 內爆 ➔ 外爆。</li>
+            <li><strong>抗拒五型</strong>：內攝、投射、迴攝、解離、融合。<strong>核心技術：空椅法</strong>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 3：認知與行為治療學派 -->
+    <div class="slide" id="slide-3">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">COGNITIVE & BEHAVIORAL THERAPY</div>
+        <div class="slide-title">認知與行為治療：ABCDEF 與八大認知扭曲</div>
+        <div class="slide-desc">行為改變技術、艾里斯 REBT、貝克認知治療 CT 與麥欽鮑姆 CBM 對照</div>
+      </div>
+      <div class="grid-3">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">傳統行為治療</span>
+            <span class="card-pill" style="color:#0F766E;">科學實證</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>行為改變技術</strong>：正增強、負增強、懲罰、消弱。</li>
+            <li><strong>系統減敏感法（Wolpe）</strong>：
+              <div class="formula-box">
+                1. 訂定焦慮階層表<br>
+                2. 肌肉放鬆訓練<br>
+                3. 循序想像配對脫敏
+              </div>
+            </li>
+            <li><strong>其他技術</strong>：代幣制、內爆法、肯定訓練。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Ellis 理性情緒行為 (REBT)</span>
+            <span class="card-pill" style="color:#6D28D9;">非理性信念</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>核心論點</strong>：困擾源於個人的非理性信念（應該、必須、絕對）。</li>
+            <li><strong>ABCDEF 架構</strong>：
+              <div class="formula-box">
+                <strong>A</strong> 事件 ➔ <strong>B</strong> 信念 ➔ <strong>C</strong> 結果<br>
+                ➔ <strong>D</strong> 駁斥辯論（產婆詰問）<br>
+                ➔ <strong>E</strong> 新理性哲學 ➔ <strong>F</strong> 新情緒感受
+              </div>
+            </li>
+            <li><strong>特色技術</strong>：產婆辯論術、對抗羞辱練習。</li>
+          </ul>
+        </div>
+
+        <div class="card card-blue">
+          <div class="card-header">
+            <span class="card-title">Beck 認知治療 (CT)</span>
+            <span class="card-pill" style="color:#0284C7;">合作經驗主義</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>核心概念</strong>：負向自動化思考、憂鬱認知三徵兆（我、世界、未來）。</li>
+            <li><strong>高頻認知扭曲</strong>：
+              <div class="formula-box">
+                - <strong>獨斷推論</strong>：無證據遽下結論<br>
+                - <strong>選擇性推論</strong>：以偏概全看缺點<br>
+                - <strong>極端化二分法</strong>：非黑即白全有全無<br>
+                - <strong>個人化</strong>：無端歸咎於自己一人
+              </div>
+            </li>
+            <li><strong>技術</strong>：想法真實性雙欄驗證表。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 4：後現代諮商與焦點解決治療 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">POSTMODERN COUNSELING & REALITY THERAPY</div>
+        <div class="slide-title">後現代諮商：SFBT 問句庫、敘事外化與現實治療</div>
+        <div class="slide-desc">看重優勢資源、小步改變、社會建構故事與 Glasser 選擇理論</div>
+      </div>
+      <div class="grid-3">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">SFBT 焦點解決治療</span>
+            <span class="card-pill" style="color:#0F766E;">資源賦能</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>核心心法</strong>：聚焦於問題解決而非問題成因；小改變滾雪球帶動大改變。</li>
+            <li><strong>經典問句寶庫</strong>：
+              <div class="formula-box">
+                - <strong>奇蹟問句</strong>：睡醒若問題解決有何不同？<br>
+                - <strong>例外問句</strong>：問題何時比較不嚴重？<br>
+                - <strong>評量問句</strong>：1~10 分量表評估信心<br>
+                - <strong>因應問句</strong>：在逆境中你是怎麼撐過來的？
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">敘事治療 (White & Epston)</span>
+            <span class="card-pill" style="color:#6D28D9;">社會建構論</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>核心震憾命題</strong>：<strong>「人不是問題，問題才是問題」</strong>。</li>
+            <li><strong>不知情立場（Not-knowing）</strong>：諮商師謙遜好奇，案主是自身生命專家。</li>
+            <li><strong>核心歷程</strong>：
+              <div class="formula-box">
+                1. <strong>問題外化</strong>（擬人化問題）<br>
+                2. <strong>發掘獨特結果（閃亮時刻）</strong><br>
+                3. 改寫替代故事與撰寫敘事信
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-header">
+            <span class="card-title">Glasser 現實治療法</span>
+            <span class="card-pill" style="color:#D97706;">選擇理論</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>全人行為四輪車</strong>：行動與思考（前輪主控）；感受與生理（後輪跟隨）。</li>
+            <li><strong>WDEP 諮商歷程</strong>：
+              <div class="formula-box">
+                - <strong>W (Wants)</strong>：你想要什麼？<br>
+                - <strong>D (Doing)</strong>：你現在在做什麼？<br>
+                - <strong>E (Evaluation)</strong>：這樣做對你有用嗎？<br>
+                - <strong>P (Planning)</strong>：擬定可行承諾計畫
+              </div>
+            </li>
+            <li><strong>原則</strong>：不接受藉口、不使用體罰、永不放棄。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 5：客體關係與依附發展 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">OBJECT RELATIONS & ATTACHMENT</div>
+        <div class="slide-title">客體關係理論、分離個體化與依附型態</div>
+        <div class="slide-desc">瑪勒自我誕生階段、溫尼考特過渡性客體與安斯沃思依附矩陣</div>
+      </div>
+      <div class="grid-2">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">Mahler 分離與個體化四階段</span>
+            <span class="card-pill" style="color:#0F766E;">出生前三年</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>正常早閉期（0~1月）</strong>：處於自閉保護殼，未分化自我。</li>
+            <li><strong>正常共生期（1~5月）</strong>：與母親形成全能雙元融合體。</li>
+            <li><strong>分離與個體化期（5月~3歲）</strong>：
+              <div class="formula-box">
+                - 遭母親抗拒 ➔ <strong>邊緣性人格異常（BPD）</strong>（分裂 Splitting 防衛、情緒極端）<br>
+                - 缺乏分化機會 ➔ <strong>自戀性人格異常（NPD）</strong>
+              </div>
+            </li>
+            <li><strong>客體恆常性確立（3歲+）</strong>：內化穩定母親意象，耐受分離。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Winnicott 與當代客體大師</span>
+            <span class="card-pill" style="color:#6D28D9;">自體與環境</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>夠好的母親（Good-enough Mother）</strong>：早期充分滿足，隨後適度給予挫折引導自主，非扮演完美母親。</li>
+            <li><strong>過渡性客體（Transitional Object）</strong>：安撫毛巾、玩具，象徵母親存在，橋接內在幻想與真實世界。</li>
+            <li><strong>Kernberg 分裂（Splitting）</strong>：將人二分為全好或全壞。</li>
+            <li><strong>Hoffman 心理分離四向度</strong>：態度、功能、情緒、衝突獨立。</li>
+          </ul>
+        </div>
+
+        <div class="card card-blue" style="grid-column: span 2;">
+          <div class="card-header">
+            <span class="card-title">Ainsworth 陌生情境四大依附型態雙軸大對照</span>
+            <span class="card-pill" style="color:#0284C7;">看自己 vs 看他人</span>
+          </div>
+          <div class="grid-4" style="margin-top: 4px;">
+            <div style="background:#F0FDF4; border-radius:12px; padding:10px;">
+              <strong style="color:#166534;">安全型依附</strong><br>
+              <small>看自己：好 · 看別人：好</small>
+              <p style="font-size:12px; margin-top:4px;">重聚時主動親近並快速安心；人際成熟信任。</p>
+            </div>
+            <div style="background:#FEF3C7; border-radius:12px; padding:10px;">
+              <strong style="color:#92400E;">抗拒／矛盾型</strong><br>
+              <small>看自己：不好 · 看別人：好</small>
+              <p style="font-size:12px; margin-top:4px;">重聚時愛恨交加推打；過度黏人依賴、怕被拋棄。</p>
+            </div>
+            <div style="background:#EFF6FF; border-radius:12px; padding:10px;">
+              <strong style="color:#1E40AF;">逃避型依附</strong><br>
+              <small>看自己：好 · 看別人：不好</small>
+              <p style="font-size:12px; margin-top:4px;">重聚時眼神迴避轉身不理；表面冷漠、壓抑情感。</p>
+            </div>
+            <div style="background:#FFE4E6; border-radius:12px; padding:10px;">
+              <strong style="color:#9F1239;">紊亂／混亂型</strong><br>
+              <small>看自己：不好 · 看別人：不好</small>
+              <p style="font-size:12px; margin-top:4px;">反應錯亂無連貫策略；多來自嚴重虐待或創傷家庭。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 6：青少年發展與大腦神經語言 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">ADOLESCENT DEVELOPMENT & BRAIN</div>
+        <div class="slide-title">青少年思維、自我中心與神經語言模型</div>
+        <div class="slide-desc">Selman 友誼五階段、Elkind 自我中心四特徵與 Wernicke-Geschwind 語言迴路</div>
+      </div>
+      <div class="grid-3">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">Selman 友誼發展五階段</span>
+            <span class="card-pill" style="color:#0F766E;">觀點取替</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>階段 0 (3~6歲)</strong>：暫時性玩伴（利益遊戲）。</li>
+            <li><strong>階段 1 (5~9歲)</strong>：單方面協助（滿足個人需求）。</li>
+            <li><strong>階段 2 (7~12歲)</strong>：公平合作（雙向互惠無承諾）。</li>
+            <li><strong>階段 3 (10~15歲)</strong>：<strong>親密與相互分享</strong>（排他性、吐露秘密）。</li>
+            <li><strong>階段 4 (青少年+)</strong>：自主相互依賴（尊重個別空間）。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Elkind 青少年自我中心</span>
+            <span class="card-pill" style="color:#6D28D9;">高頻四大特徵</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>想像的觀眾</strong>：深信所有人在注視自己的一舉一動（走在路上覺得大家看自己胸部 ➔ 駝背）。</li>
+            <li><strong>個人神話</strong>：誇大自身情感的獨特性與不朽感（「不幸只會發生在別人身上」）。</li>
+            <li><strong>假裝愚蠢</strong>：假裝愚蠢以唬弄成人規避責任。</li>
+            <li><strong>明顯偽善</strong>：口談理想道德，行動卻表裡不一。</li>
+          </ul>
+        </div>
+
+        <div class="card card-blue">
+          <div class="card-header">
+            <span class="card-title">Wernicke-Geschwind 模型</span>
+            <span class="card-pill" style="color:#0284C7;">秒殺口訣</span>
+          </div>
+          <div class="formula-box" style="margin-bottom:8px;">
+            <span class="formula-tag">必背口訣</span>
+            <strong>「布說、溫聽、弓傳、角讀寫」</strong>
+          </div>
+          <ul class="point-list">
+            <li><strong>布洛卡區</strong>：說不出話、電報式語言（表達障礙）。</li>
+            <li><strong>溫尼克區</strong>：聽不懂話、胡言亂語（理解障礙）。</li>
+            <li><strong>弓狀束</strong>：無法傳導複述（複述障礙）。</li>
+            <li><strong>角回</strong>：文字與語音跨通道失調 ➔ 失讀失寫症。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 7：青少年生涯發展與特質理論 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">CAREER DEVELOPMENT & TRAIT THEORIES</div>
+        <div class="slide-title">青少年生涯發展與人格特質理論</div>
+        <div class="slide-desc">舒波生涯彩虹圖、Holland RIASEC 六角型與 Gottfredson 事業抱負四階段</div>
+      </div>
+      <div class="grid-3">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">Super 舒波生涯彩虹圖</span>
+            <span class="card-pill" style="color:#0F766E;">自我概念落實</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>成長期 (0~14歲)</strong>：發展自我概念（幻想 ➔ 興趣 ➔ 能力）。</li>
+            <li><strong>探索期 (15~24歲)</strong>：試探 ➔ 過渡 ➔ 初步承諾。</li>
+            <li><strong>建立期 (25~44歲)</strong>：工作安定、鞏固地位。</li>
+            <li><strong>維持期 (45~64歲)</strong>：保持既有成就地位。</li>
+            <li><strong>衰退期 (65歲+)</strong>：工時減少、退休適應。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Holland RIASEC 六角型</span>
+            <span class="card-pill" style="color:#6D28D9;">人格環境適配</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>R 實際型</strong>：操作動手、工程農夫技工。</li>
+            <li><strong>I 研究型</strong>：數理思考、科學家研究員。</li>
+            <li><strong>A 藝術型</strong>：非結構創作、作家畫家。</li>
+            <li><strong>S 社會型</strong>：助人關懷、<strong>教師／諮商師</strong>。</li>
+            <li><strong>E 企業型</strong>：說服領導、主管行銷政治。</li>
+            <li><strong>C 傳統型</strong>：精確常規、會計行政秘書。</li>
+          </ul>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-header">
+            <span class="card-title">Gottfredson 事業抱負</span>
+            <span class="card-pill" style="color:#D97706;">侷限與妥協</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>階段 1 (3~5歲)</strong>：大小力量導向（大人才有工作）。</li>
+            <li><strong>階段 2 (6~8歲)</strong>：<strong>性別角色導向</strong>（排除不合性別職業）。</li>
+            <li><strong>階段 3 (9~13歲)</strong>：<strong>社會評價導向</strong>（排除太低與太難職業）。</li>
+            <li><strong>階段 4 (14歲+)</strong>：內在獨特自我導向（興趣性格配對）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 8：學校三級輔導體制與正向管教 -->
+    <div class="slide" id="slide-8">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">STUDENT GUIDANCE & POSITIVE DISCIPLINE</div>
+        <div class="slide-title">學校三級輔導網絡與校園正向管教</div>
+        <div class="slide-desc">《學生輔導法》三級機制、改變六階段與防制體罰工作方案</div>
+      </div>
+      <div class="grid-2">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">學校三級輔導機制分工表</span>
+            <span class="card-pill" style="color:#0F766E;">《學生輔導法》</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>初級預防（發展性）</strong>：面向<strong>全校全體學生</strong>，由全體教師、導師推動心理健康教育、正向管教與生活常規。</li>
+            <li><strong>次級預防（介入性）</strong>：面向<strong>適應困難與高關懷學生</strong>，由<strong>專任與兼任輔導教師</strong>進行個別諮商、小團體與認輔。</li>
+            <li><strong>三級預防（處遇性）</strong>：面向<strong>嚴重偏差與自我傷害危機個案</strong>，由學生輔導諮商中心跨專業網絡（社工、醫療、心理師）介入。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">Prochaska 個案改變六階段</span>
+            <span class="card-pill" style="color:#6D28D9;">動機歷程</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>1. 醞釀前期</strong>：無意圖改變，否認問題存在。</li>
+            <li><strong>2. 醞釀期</strong>：矛盾期，想改又怕改，裹足不前。</li>
+            <li><strong>3. 準備期</strong>：承諾改變，擬定一個月內行動計畫。</li>
+            <li><strong>4. 行動期</strong>：主動付諸外在行動與環境改變。</li>
+            <li><strong>5. 維持期</strong>：維持新行為六個月以上，預防復發。</li>
+            <li><strong>6. 終止期</strong>：新行為徹底內化為生活風格。</li>
+          </ul>
+        </div>
+
+        <div class="card card-amber" style="grid-column: span 2;">
+          <div class="card-header">
+            <span class="card-title">校園正向管教工作方案與《沒有失敗的學校》留置室機制</span>
+            <span class="card-pill" style="color:#D97706;">零體罰實踐</span>
+          </div>
+          <div class="grid-3" style="margin-top: 4px;">
+            <div style="background:#FFFBEB; border-radius:10px; padding:10px;">
+              <strong style="color:#92400E;">初級正向管教</strong><br>
+              <small>教師研習、民主班規、禁制連坐法、接納學生情緒。</small>
+            </div>
+            <div style="background:#F0FDF4; border-radius:10px; padding:10px;">
+              <strong style="color:#166534;">次級申訴與認輔</strong><br>
+              <small>學生申訴專線、教師諮詢、認輔適應困難學童。</small>
+            </div>
+            <div style="background:#EFF6FF; border-radius:10px; padding:10px;">
+              <strong style="color:#1E40AF;">留置室（Glasser）</strong><br>
+              <small>由輔導人員主持，冷靜自我評估 WDEP，絕非體罰禁閉。</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 9：犯罪社會學六大流派與危機樹 -->
+    <div class="slide" id="slide-9">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">SOCIOLOGY OF DEVIANCE & CRIME</div>
+        <div class="slide-title">青少年偏差行為成因：社會學六大流派</div>
+        <div class="slide-desc">中性化技術、低階文化焦點、標籤理論、差別接觸、社會鍵與結構緊張</div>
+      </div>
+      <div class="grid-3">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">中性化技術 (Sykes & Matza)</span>
+            <span class="card-pill" style="color:#0F766E;">合理化藉口</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>責任否定</strong>：不是我的錯，環境逼的。</li>
+            <li><strong>傷害否定</strong>：沒人受傷，我只是借用。</li>
+            <li><strong>被害者否定</strong>：是他活該欠教訓。</li>
+            <li><strong>譴責譴責者</strong>：你們警察老師也貪污偏心。</li>
+            <li><strong>訴諸更高忠誠</strong>：為了兄弟幫派義氣。</li>
+          </ul>
+        </div>
+
+        <div class="card card-lavender">
+          <div class="card-header">
+            <span class="card-title">社會鍵理論 (Hirschi)</span>
+            <span class="card-pill" style="color:#6D28D9;">口訣：依奉參信</span>
+          </div>
+          <div class="formula-box" style="margin-bottom:6px;">
+            <span class="formula-tag">人為何不犯罪？</span>
+            因具備四大社會鍵防止偏差：
+          </div>
+          <ul class="point-list">
+            <li><strong>依附 (Attachment)</strong>：愛重要他人。</li>
+            <li><strong>奉獻 (Commitment)</strong>：對學業未來的投資。</li>
+            <li><strong>參與 (Involvement)</strong>：被正向活動佔滿。</li>
+            <li><strong>信仰 (Belief)</strong>：內心認同社會道德法律。</li>
+          </ul>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-header">
+            <span class="card-title">結構緊張理論 (Merton)</span>
+            <span class="card-pill" style="color:#D97706;">目標 vs 手段</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>順從型 (+ / +)</strong>：守法良民。</li>
+            <li><strong>創新型 (+ / -)</strong>：<strong>詐欺犯罪以求發財</strong>。</li>
+            <li><strong>儀式型 (- / +)</strong>：死守常規但無志向。</li>
+            <li><strong>退縮型 (- / -)</strong>：吸毒流浪全面放棄。</li>
+            <li><strong>叛逆型 (± / ±)</strong>：革命推翻另立體系。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投影片 10：神級口訣與法規數字考點 -->
+    <div class="slide" id="slide-10">
+      <div class="slide-title-group">
+        <div class="slide-subtitle">EXAM SECRETS & LEGAL NUMBERS</div>
+        <div class="slide-title">考前秒殺題眼庫與法規必背數字</div>
+        <div class="slide-desc">初試高頻誘答陷阱、神級口訣與兒少保護少事法黃金標準</div>
+      </div>
+      <div class="grid-2">
+        <div class="card card-mint">
+          <div class="card-header">
+            <span class="card-title">初試秒殺口訣大彙整</span>
+            <span class="card-pill" style="color:#0F766E;">考場直覺</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>大腦失語症</strong>：<strong>「布說、溫聽、弓傳、角讀寫」</strong>。</li>
+            <li><strong>社會控制鍵</strong>：<strong>「一（依）份（奉）餐（參）心（信）」</strong>。</li>
+            <li><strong>中性化技術</strong>：<strong>「責、害、受、譴、忠」</strong>。</li>
+            <li><strong>結構緊張五型</strong>：<strong>「順、創、儀、退、叛」</strong>。</li>
+            <li><strong>自殺預警訊號</strong>：<strong>FACT</strong>（Feelings, Actions, Changes, Threats）。</li>
+          </ul>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-header">
+            <span class="card-title">法規必考黃金數字清單</span>
+            <span class="card-pill" style="color:#D97706;">數字陷阱</span>
+          </div>
+          <ul class="point-list">
+            <li><strong>少年定義</strong>：<strong>12 歲以上未滿 18 歲</strong>（未滿 12 歲除罪化回歸教育）。</li>
+            <li><strong>保護處分年限</strong>：至多執行至滿 <strong>21 歲</strong>為止。</li>
+            <li><strong>家長親職教育</strong>：<strong>8 小時以上 50 小時以下</strong>。</li>
+            <li><strong>成年人教唆少年</strong>：加重其刑至 <strong>1/2（二分之一）</strong>。</li>
+            <li><strong>校園通報時效</strong>：立即通報，至遲不得逾 <strong>24 小時</strong>。</li>
+            <li><strong>緊急安置期間</strong>：不得超過 <strong>72 小時</strong>（法院延長以 <strong>3 個月</strong>為限）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部控制列 -->
+    <div class="deck-footer">
+      <div class="shortcuts-hint">
+        快捷鍵：← 上一頁 · → / 空白鍵 下一頁 · F 全螢幕
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-sub" id="prevBtn" onclick="prevSlide()">❮ 上一頁</button>
+        <button class="btn" id="nextBtn" onclick="nextSlide()">下一頁 ❯</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      currentSlide = index;
+
+      document.querySelectorAll('.slide').forEach((el, idx) => {
+        if (idx + 1 === currentSlide) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+
+      document.getElementById('slideIndicator').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+      document.getElementById('prevBtn').disabled = (currentSlide === 1);
+      document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        const stage = document.getElementById('deckStage');
+        if (!document.fullscreenElement) {
+          stage.requestFullscreen().catch(err => alert(err.message));
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    showSlide(1);
+  </script>
+</body>
+</html>

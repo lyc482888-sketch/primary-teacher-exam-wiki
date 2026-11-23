@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教育行政核心考點與領導理論手帳 | 國小教甄 LLM Wiki</title>
+  <style>
+    :root {
+      /* 教育行政典雅深藍與莫蘭迪板岩風格 */
+      --bg-cream: #F4F6F9;
+      --card-white: #FFFFFF;
+      --primary-navy: #2C3E50;
+      --primary-slate: #34495E;
+      --accent-gold: #D35400;
+      --accent-gold-soft: #FEF5ED;
+      --accent-teal: #16A085;
+      --accent-teal-soft: #E8F8F5;
+      --accent-blue: #2980B9;
+      --accent-blue-soft: #EBF5FB;
+      --accent-purple: #8E44AD;
+      --accent-purple-soft: #F4ECF7;
+      --text-dark: #2C3E50;
+      --text-sub: #566573;
+      --border-soft: #D5DBDB;
+      --shadow-pastel: 0 16px 36px -10px rgba(44, 62, 80, 0.22);
+      --shadow-card: 0 6px 16px -3px rgba(44, 62, 80, 0.08);
+      --radius-large: 26px;
+      --radius-card: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #EAECEE 0%, #F4F6F9 50%, #E8F8F5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* 投影片舞台容器 (16:9 黃金比例) */
+    .deck-stage {
+      width: 100%;
+      max-width: 1120px;
+      aspect-ratio: 16 / 9;
+      min-height: 640px;
+      background: var(--card-white);
+      border-radius: var(--radius-large);
+      box-shadow: var(--shadow-pastel);
+      border: 3px solid #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 頂部裝飾彩色條 */
+    .deck-topbar {
+      margin: 16px 28px 0 28px;
+      background: linear-gradient(90deg, #2C3E50 0%, #34495E 40%, #16A085 75%, #D35400 100%);
+      height: 6px;
+      border-radius: 999px;
+    }
+
+    /* 投影片容器 */
+    .slide-viewport {
+      flex: 1;
+      padding: 28px 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    /* 單張投影片 */
+    .slide-item {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+
+    .slide-item.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 標題與標籤 */
+    .slide-header {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px dashed var(--border-soft);
+      padding-bottom: 12px;
+    }
+
+    .slide-title-wrap h2 {
+      font-size: 26px;
+      color: var(--primary-navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .slide-subtitle {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    .slide-tag {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(41, 128, 185, 0.2);
+      white-space: nowrap;
+    }
+
+    /* 網格卡片佈局 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      flex: 1;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-soft);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+    }
+
+    .card.highlight-navy {
+      background: #F8F9FA;
+      border-top: 4px solid var(--primary-navy);
+    }
+
+    .card.highlight-teal {
+      background: var(--accent-teal-soft);
+      border-top: 4px solid var(--accent-teal);
+    }
+
+    .card.highlight-gold {
+      background: var(--accent-gold-soft);
+      border-top: 4px solid var(--accent-gold);
+    }
+
+    .card.highlight-purple {
+      background: var(--accent-purple-soft);
+      border-top: 4px solid var(--accent-purple);
+    }
+
+    .card.highlight-blue {
+      background: var(--accent-blue-soft);
+      border-top: 4px solid var(--accent-blue);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary-navy);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-dark);
+      flex: 1;
+    }
+
+    .card-body ul {
+      padding-left: 18px;
+    }
+
+    .card-body li {
+      margin-bottom: 5px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .badge-navy { background: #EAECEE; color: #2C3E50; }
+    .badge-teal { background: #D1F2EB; color: #117864; }
+    .badge-gold { background: #EDBB99; color: #78281F; }
+    .badge-blue { background: #D4E6F1; color: #1B4F72; }
+
+    /* 表格樣式 */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .table-custom th {
+      background: #2C3E50;
+      color: #FFFFFF;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .table-custom td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #EBEDEF;
+      color: #2C3E50;
+      line-height: 1.45;
+    }
+
+    .table-custom tr:nth-child(even) {
+      background: #F8F9FA;
+    }
+
+    .table-custom tr:hover {
+      background: #EBF5FB;
+    }
+
+    /* 底部控制導航列 */
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 32px;
+      background: #F8F9FA;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .btn-nav {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      padding: 8px 16px;
+      border-radius: 10px;
+      color: var(--primary-navy);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--primary-navy);
+      color: #FFFFFF;
+      border-color: var(--primary-navy);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .page-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .page-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #BDC3C7;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .page-dot.active {
+      background: var(--accent-gold);
+      width: 24px;
+    }
+
+    .deck-info {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 進度條 */
+    .progress-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #16A085, #D35400);
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    /* 封面專用樣式 */
+    .cover-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      padding: 10px 40px;
+    }
+
+    .cover-icon {
+      width: 68px;
+      height: 68px;
+      background: linear-gradient(135deg, #2C3E50 0%, #16A085 100%);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px -6px rgba(44, 62, 80, 0.35);
+      margin-bottom: 16px;
+    }
+
+    .cover-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--primary-navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--text-sub);
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .cover-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .cover-footer-note {
+      font-size: 12px;
+      color: #7F8C8D;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-stage" id="deckStage">
+    <!-- 進度條 -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <!-- 頂部精緻彩色線 -->
+    <div class="deck-topbar"></div>
+
+    <!-- 投影片視窗 -->
+    <div class="slide-viewport">
+
+      <!-- Slide 1: 封面 -->
+      <div class="slide-item active" id="slide-0">
+        <div class="cover-wrap">
+          <div class="cover-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <h1 class="cover-title">教育行政核心考點與領導理論手帳</h1>
+          <p class="cover-subtitle">
+            國小教甄初試必讀：教育行政百年演進、組織病態三定律、有限理性決策、權變與情境領導、Burns 轉型領導 4I、OCDQ 六大氣氛、Thomas 衝突管理、PERT 計算與法規原則。
+          </p>
+          <div class="cover-tags">
+            <span class="badge-pill badge-navy">⚖️ 國小教甄教育行政</span>
+            <span class="badge-pill badge-teal">🏛️ 理論演進四大時期</span>
+            <span class="badge-pill badge-gold">👑 領導理論全書 (Fiedler/Hersey/Bass)</span>
+            <span class="badge-pill badge-blue">📊 OCDQ 氣氛與 Thomas 衝突策略</span>
+            <span class="badge-pill badge-navy">📐 PERT 三時估計公式</span>
+          </div>
+          <div class="cover-footer-note">
+            整理維護：國小教甄 LLM Wiki 專屬助教 · 支援鍵盤左右鍵 ◀ ▶ 快速切頁
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: 理論演進四部曲 -->
+      <div class="slide-item" id="slide-1">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>🏛️ 教育行政理論演進四大時期</h2>
+            <div class="slide-subtitle">從封閉體系走向開放系統，從工具理性邁向權變與意義建構</div>
+          </div>
+          <div class="slide-tag">百年演進史</div>
+        </div>
+        <div class="grid-4">
+          <div class="card highlight-navy">
+            <div class="card-title">1. 科學實證時期<br><span style="font-size:12px;font-weight:normal;color:#7F8C8D;">1900 - 1930（傳統/古典）</span></div>
+            <div class="card-body">
+              <ul>
+                <li><strong>威爾遜</strong>：行政學之父，政治行政二分。</li>
+                <li><strong>泰勒</strong>：科學管理之父，時間動作研究、按件計酬、最佳方法。</li>
+                <li><strong>費堯</strong>：行政管理之父，POCCC、14原則。</li>
+                <li><strong>韋伯</strong>：科層之父，合法合理權威。</li>
+                <li><strong>特徵</strong>：封閉系統、經濟人假設、忽視人性情感。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-teal">
+            <div class="card-title">2. 行為科學時期<br><span style="font-size:12px;font-weight:normal;color:#7F8C8D;">1930 - 1960（人群關係）</span></div>
+            <div class="card-body">
+              <ul>
+                <li><strong>梅堯</strong>：霍桑實驗，發現「非正式組織」與「社會人」心理。</li>
+                <li><strong>巴納德</strong>：動態平衡理論、權威接受論、無關緊要區。</li>
+                <li><strong>麥格烈哥</strong>：X-Y 理論（人性本惡 vs 本善）。</li>
+                <li><strong>特徵</strong>：重視員工心理滿足、雙向溝通、參與管理。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-blue">
+            <div class="card-title">3. 系統途徑時期<br><span style="font-size:12px;font-weight:normal;color:#7F8C8D;">1960 - 1980（開放系統）</span></div>
+            <div class="card-body">
+              <ul>
+                <li><strong>貝塔朗菲</strong>：一般系統論，開放系統動態互動。</li>
+                <li><strong>輸入-轉換-輸出-回饋</strong>：次系統（結構、技術、心理社會、目標價值、管理）。</li>
+                <li><strong>等合性 (Equifinality)</strong>：殊途同歸，多重途徑達成相同目標。</li>
+                <li><strong>卡斯特與羅森威</strong>：系統綜合論。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-gold">
+            <div class="card-title">4. 近代權變與新興<br><span style="font-size:12px;font-weight:normal;color:#7F8C8D;">1990 至今（渾沌與整合）</span></div>
+            <div class="card-body">
+              <ul>
+                <li><strong>戴明</strong>：全面品質管理（TQM），PDCA 戴明輪。</li>
+                <li><strong>彼得·聖吉</strong>：學習型組織，五大修練（核心為系統思考）。</li>
+                <li><strong>渾沌理論</strong>：蝴蝶效應、奇異吸子、非線性。</li>
+                <li><strong>特徵</strong>：賦權增能、跨界協作、動態適應。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: 學校科層體制與三大病態 -->
+      <div class="slide-item" id="slide-2">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>🏢 學校組織特質與科層體制三大病態</h2>
+            <div class="slide-subtitle">韋伯理想科層模型 vs 初試高頻陷阱管理定律</div>
+          </div>
+          <div class="slide-tag">科層病態定律</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-navy">
+            <div class="card-title">韋伯（Weber）理想科層五大特徵</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>專業分工（Specialization）</strong>：各司其職、職責明確。</li>
+                <li><strong>層級節制（Hierarchy）</strong>：下級服從上級，金字塔指揮鏈。</li>
+                <li><strong>法規無私（Impersonality）</strong>：公事公辦、對事不對人。</li>
+                <li><strong>永業保障（Career Orientation）</strong>：依年資與考績晉升，免受任意解雇。</li>
+                <li><strong>理性書面紀錄</strong>：所有行政作為均留存公文書檔案。</li>
+                <li><strong>學校組織反思</strong>：魏克（Weick）指學校為「鬆散結合系統（Loosely Coupled System）」；歐文斯指學校為「雙重系統」。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-gold">
+            <div class="card-title">教甄三大必考病態定律</div>
+            <div class="card-body">
+              <ul>
+                <li><strong style="color:var(--accent-gold);">帕金森定律 (Parkinson's Law)</strong>：
+                  <br>① 主管喜歡增加部屬（副手）而非對手。
+                  <br>② 工作會自動膨脹填滿所有可用時間，導致冗員增加與預算膨脹。</li>
+                <li><strong style="color:var(--accent-gold);">彼得原理 (Peter Principle)</strong>：
+                  <br>在層級組織中，「每位員工最終都會被晉升到其無法勝任的職位階層」，導致許多關鍵主管職皆由不稱職者把持。</li>
+                <li><strong style="color:var(--accent-gold);">寡頭鐵律 (Iron Law of Oligarchy)</strong>：
+                  <br>米歇爾斯提出：任何民主組織隨著規模擴大，權力不可避免地集中於少數領導階層（菁英）手中。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: 學校行政決定與決策模式 -->
+      <div class="slide-item" id="slide-3">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>💡 行政決定與決策模式全攻略</h2>
+            <div class="slide-subtitle">賽蒙「有限理性」為核心，綜覽理性、漸進、垃圾桶與混合掃描</div>
+          </div>
+          <div class="slide-tag">決策理論速查</div>
+        </div>
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th style="width:18%;">決策模式</th>
+              <th style="width:16%;">代表倡導學者</th>
+              <th style="width:38%;">核心主張與特色</th>
+              <th style="width:28%;">國小教甄題眼與關鍵字</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>有限理性模式<br>(滿意決策)</strong></td>
+              <td><strong>賽蒙<br>(Herbert Simon)</strong></td>
+              <td>「行政即決策」。人類受限於資訊不全、時間與認知能力，不可能達到「最佳決策」，只能追求<strong>「令人滿意的滿意解（Satisficing）」</strong>。</td>
+              <td>行政人假設、有限理性、滿意解、情報-設計-抉擇三部曲</td>
+            </tr>
+            <tr>
+              <td><strong>漸進決策模式<br>(Incremental)</strong></td>
+              <td><strong>林布隆<br>(Charles Lindblom)</strong></td>
+              <td>反對大刀闊斧，主張在現有政策基礎上進行「修修補補」的邊際漸進調整，以政治折衷求得共識。</td>
+              <td>修修補補、漸進微調、枝節漸進法、政治妥協</td>
+            </tr>
+            <tr>
+              <td><strong>混合掃描模式<br>(Mixed-Scanning)</strong></td>
+              <td><strong>艾齊厄尼<br>(Amitai Etzioni)</strong></td>
+              <td>融合理性廣度與漸進深度：對核心基本政策方向採<strong>「理性宏觀掃描」</strong>，對執行細節採<strong>「漸進微調」</strong>。</td>
+              <td>結合高空廣角鏡與顯微鏡、兼顧根本與漸進</td>
+            </tr>
+            <tr>
+              <td><strong>垃圾桶決策模式<br>(Garbage Can)</strong></td>
+              <td><strong>柯漢、馬區、奧森<br>(Cohen, March, Olsen)</strong></td>
+              <td>適用於<strong>「組織化無政府狀態」</strong>（目標模糊、手段技術不明、參與流動）。四道獨立流向（問題、方案、參與者、機會）在垃圾桶偶然碰撞。</td>
+              <td>目標模糊、技術不明、四流碰撞、偶然巧合決定</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Slide 5: 經典教育領導理論 (行為論與權變論) -->
+      <div class="slide-item" id="slide-4">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>👑 經典教育領導理論：LPC 與情境模式</h2>
+            <div class="slide-subtitle">費德勒 LPC 適配矩陣 vs 赫西與布蘭查德 M1-M4 成熟度梯隊</div>
+          </div>
+          <div class="slide-tag">權變領導矩陣</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-teal">
+            <div class="card-title">Fiedler LPC 權變模式</div>
+            <div class="card-body">
+              <p style="margin-bottom:8px;"><strong>LPC 量表</strong>：高 LPC 為關係導向；低 LPC 為任務導向。</p>
+              <div style="background:#FFFFFF;border:1px solid #D1F2EB;padding:10px;border-radius:10px;margin-bottom:8px;">
+                <strong style="color:#117864;">🌟 必背秒殺口訣：</strong><br>
+                <strong>「極好極壞選任務，中間情境選人際」</strong>
+              </div>
+              <ul>
+                <li><strong>情境極度有利（1-3類）</strong>：領導者受愛戴、任務明確、職權大 ➔ 採<strong>低 LPC（任務導向）</strong>。</li>
+                <li><strong>情境中度有利（4-6類）</strong>：情境充滿變數與疑慮 ➔ 採<strong>高 LPC（關係導向）</strong>。</li>
+                <li><strong>情境極端惡劣不利（8類）</strong>：陷入危機絕境 ➔ 採<strong>低 LPC（任務導向）</strong>。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-blue">
+            <div class="card-title">Hersey & Blanchard 情境領導模式</div>
+            <div class="card-body">
+              <p style="margin-bottom:8px;">依教師<strong>成熟度（工作能力 + 意願）</strong>調整 S1-S4：</p>
+              <ul>
+                <li><strong>M1（無能、無願）</strong> ➔ <strong>S1 告知型（Telling）</strong><br>高任務、低關係（命令指導、明確規定）。</li>
+                <li><strong>M2（無能、有願，新進教師）</strong> ➔ <strong>S2 推銷型（Selling）</strong><br>高任務、高關係（提供技術指導兼給予激勵）。</li>
+                <li><strong>M3（有能、無願，職業倦怠）</strong> ➔ <strong>S3 參與型（Participating）</strong><br>低任務、高關係（傾聽支持、共同決策）。</li>
+                <li><strong>M4（有能、有願，專家資深）</strong> ➔ <strong>S4 授權型（Delegating）</strong><br>低任務、低關係（充分授權、信任自主）。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: 當代新興領導典範 (轉型 4I 與第 5 級) -->
+      <div class="slide-item" id="slide-5">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>✨ 當代領導新浪潮：轉型領導 4I 與卓越校長</h2>
+            <div class="slide-subtitle">Burns/Bass 轉型領導 vs 柯林斯第 5 級領導、僕人領導、分散式領導</div>
+          </div>
+          <div class="slide-tag">當代領導核心</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-gold">
+            <div class="card-title">轉型領導四大核心要素（4I）</div>
+            <div class="card-body">
+              <ul>
+                <li><strong style="color:var(--accent-gold);">理想化影響力 (Idealized Influence)</strong>：<br>校長以身作則、品行崇高，成為全校師生景仰的道德與行為典範。</li>
+                <li><strong style="color:var(--accent-gold);">感召性激勵 (Inspirational Motivation)</strong>：<br>描繪具鼓舞力的高遠教育願景，激發成員的使命感與向心力。</li>
+                <li><strong style="color:var(--accent-gold);">智性啟發 (Intellectual Stimulation)</strong>：<br>鼓勵顛覆舊有框架、反思傳統教學盲點、大膽推動課程創新。</li>
+                <li><strong style="color:var(--accent-gold);">個別化關懷 (Individualized Consideration)</strong>：<br>重視個別教師差異，擔任諮商導師與教練，提供客製化培力成長。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-navy">
+            <div class="card-title">現代卓越校長領導新典範</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>互易領導（交易領導）</strong>：條件式獎酬、例外管理（主動防弊 vs 被動究責），維持現狀合約交換。</li>
+                <li><strong>柯林斯（Collins）第五級領導</strong>：<br><span class="badge-pill badge-navy">謙虛品格 Humility</span> + <span class="badge-pill badge-gold">無比堅定專業意志 Will</span>。</li>
+                <li><strong>格林里夫（Greenleaf）僕人領導</strong>：領導者先為僕人，首要宗旨為「服務他人」，重視傾聽與同理。</li>
+                <li><strong>分散式領導（Spillane / Gronn）</strong>：領導非校長一人獨攬，為領導者、追隨者與情境三者動態互動網絡（如 PLC 社群共備）。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: 工作激勵理論精萃 -->
+      <div class="slide-item" id="slide-6">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>🔥 工作激勵理論精萃：內容論 vs 過程論</h2>
+            <div class="slide-subtitle">馬斯洛、阿德佛 ERG、赫茲伯格雙因素 vs 佛洛姆 VIE 期望理論</div>
+          </div>
+          <div class="slide-tag">激勵機制解析</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-purple">
+            <div class="card-title">內容學派（需求內涵）</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>馬斯洛需求階層</strong>：生理 ➔ 安全 ➔ 愛 ➔ 尊重 ➔ 自我實現（匱乏需求 vs 成長需求；由低到高滿意前進）。</li>
+                <li><strong>阿德佛 ERG 理論</strong>：生存 (E)、關係 (R)、成長 (G)；<strong>「挫折-退化機制」</strong>（高層次需求受挫退回追求低層次需求，且可多元並存）。</li>
+                <li><strong>赫茲伯格雙因素理論</strong>：
+                  <br>• <strong>保健因素（環境脈絡）</strong>：薪資、人際、政策 ➔ 消除不滿。
+                  <br>• <strong>激勵因素（工作本身）</strong>：成就感、責任、晉升 ➔ 帶來滿意。</li>
+                <li><strong>麥克里蘭</strong>：成就需求 (nAch)、權力需求 (nPow)、親和需求 (nAff)。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-teal">
+            <div class="card-title">過程學派（認知心理歷程）</div>
+            <div class="card-body">
+              <div style="background:#FFFFFF;border:1.5px solid #16A085;padding:8px 10px;border-radius:10px;margin-bottom:10px;font-weight:800;color:#117864;text-align:center;font-size:13px;">
+                動機力量 (M) = 期望 (E) × 媒介 (I) × 效價 (V)
+              </div>
+              <ul>
+                <li><strong>佛洛姆期望理論（VIE 模式）</strong>：
+                  <br>• <strong>期望值 (E → P)</strong>：努力能否達成預期績效？
+                  <br>• <strong>媒介性 (P → O)</strong>：達成績效能否獲得獎酬？
+                  <br>• <strong>效價 (V)</strong>：該獎酬對自己是否具備吸引力？
+                </li>
+                <li><strong>亞當斯公平理論</strong>：社會比較自己與參考對象的「產出 / 投入」比值；不公時透過減少投入、離職或扭曲認知平衡。</li>
+                <li><strong>洛克目標設定理論</strong>：具體明確、具挑戰性、成員承諾高。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: 組織氣氛與衝突管理 -->
+      <div class="slide-item" id="slide-7">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>🌤️ 學校組織氣氛與 Thomas 衝突處理策略</h2>
+            <div class="slide-subtitle">哈爾品 OCDQ 6型氣候風貌 vs 衝突處理二維方格</div>
+          </div>
+          <div class="slide-tag">氣氛與衝突</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-blue">
+            <div class="card-title">Halpin & Croft OCDQ 六大氣氛</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>開放型（Open，最佳）</strong>：校長高身先士卒高關懷；教師高士氣高親密、低疏離。</li>
+                <li><strong>自主型（Autonomous）</strong>：校長充分放權支援；教師自律積極。</li>
+                <li><strong>控制型（Controlled）</strong>：校長高倡導高疏遠；教師感到公文繁瑣<strong>高阻礙</strong>。</li>
+                <li><strong>親密型（Familiar）</strong>：校長高關懷無績效；教師聊天打混<strong>低士氣</strong>。</li>
+                <li><strong>父愛型（Paternal）</strong>：校長事必躬親過度干涉；教師受挫無力。</li>
+                <li><strong>封閉型（Closed，最差）</strong>：官僚疏離、猜忌冷漠、全面崩潰。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-gold">
+            <div class="card-title">Thomas 衝突處理五大方格</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>競爭 (Competing)</strong>：高自己、低他人 ➔ <strong>緊急危機、重大法定原則不可妥協</strong>。</li>
+                <li><strong>合作 (Collaborating，最佳)</strong>：高自己、高他人 ➔ <strong>追求雙贏、問題重大關係長遠</strong>。</li>
+                <li><strong>妥協 (Compromising)</strong>：中自己、中他人 ➔ <strong>勢均力敵、時間有限各退一步</strong>。</li>
+                <li><strong>迴避 (Avoiding)</strong>：低自己、低他人 ➔ <strong>情緒過熱需冷卻、瑣碎小事</strong>。</li>
+                <li><strong>遷就 (Accommodating)</strong>：低自己、高他人 ➔ <strong>維持和睦、自己理虧認錯</strong>。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: 計畫技術、評鑑與知識管理 -->
+      <div class="slide-item" id="slide-8">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>📊 計畫管理技術、視導評鑑與知識螺旋</h2>
+            <div class="slide-subtitle">PERT 三時估計、CIPP 評鑑四階段、野中郁次郎 SECI 與 OCB</div>
+          </div>
+          <div class="slide-tag">實務技術</div>
+        </div>
+        <div class="grid-3">
+          <div class="card highlight-navy">
+            <div class="card-title">PERT 計畫評核術</div>
+            <div class="card-body">
+              <p><strong>期望時間公式</strong>：</p>
+              <div style="background:#FFFFFF;border:1.5px solid #2C3E50;padding:8px;border-radius:8px;margin:6px 0;font-weight:800;text-align:center;color:#2C3E50;font-size:13.5px;">
+                Te = (O + 4M + P) / 6
+              </div>
+              <p style="font-size:12px;color:#566573;">O: 樂觀, M: 最可能, P: 悲觀</p>
+              <hr style="margin:8px 0;border:0;border-top:1px dashed #D5DBDB;">
+              <p><strong>關鍵路徑 (Critical Path)</strong>：<br>總耗時最長、寬裕時間為 0 的路徑。</p>
+            </div>
+          </div>
+          <div class="card highlight-teal">
+            <div class="card-title">CIPP 評鑑模式</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>C 背景 (Context)</strong>：評估需求、界定教育目標。</li>
+                <li><strong>I 輸入 (Input)</strong>：評估資源與可行方案。</li>
+                <li><strong>P 過程 (Process)</strong>：執行過程回饋（形成性評鑑）。</li>
+                <li><strong>P 成果 (Product)</strong>：評定終局成果（總結性評鑑）。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-purple">
+            <div class="card-title">SECI 知識螺旋</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>S 社會化</strong>：隱性 ➔ 隱性（薪傳師徒、觀摩）。</li>
+                <li><strong>E 外部化</strong>：隱性 ➔ 外顯（編寫教案手冊）。</li>
+                <li><strong>C 組合化</strong>：外顯 ➔ 外顯（統整建立 Wiki）。</li>
+                <li><strong>I 內部化</strong>：外顯 ➔ 隱性（做中學、轉化直覺）。</li>
+                <li><strong>OCB</strong>：利他、盡職、容忍、敦睦、公民美德。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 10: 國小教甄秒殺口訣與題眼總結 -->
+      <div class="slide-item" id="slide-9">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <h2>🎯 國小教甄秒殺口訣與題眼總結</h2>
+            <div class="slide-subtitle">考前 30 秒快速掃描，掌握教甄致勝關鍵分</div>
+          </div>
+          <div class="slide-tag">考前秒殺錦囊</div>
+        </div>
+        <div class="grid-2">
+          <div class="card highlight-gold">
+            <div class="card-title">必背經典稱號與縮寫口訣</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>行政學之父</strong>：威爾遜（政治行政二分）</li>
+                <li><strong>科學管理之父</strong>：泰勒（時間動作、按件計酬）</li>
+                <li><strong>現代管理之父</strong>：費堯（POCCC、14原則）</li>
+                <li><strong>科層之父</strong>：韋伯（合理合法權威、層級節制）</li>
+                <li><strong>人群關係之父</strong>：梅堯（霍桑實驗、非正式組織）</li>
+                <li><strong>行政程序七部曲</strong>：<strong>「拒絕豬頭領平薪」</strong><br>（計、決、組、通、領、評、興）</li>
+                <li><strong>古立克功能</strong>：<strong>POSDCORB</strong>（計組用指協報預）</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card highlight-teal">
+            <div class="card-title">題幹陷阱破解指南</div>
+            <div class="card-body">
+              <ul>
+                <li><strong>高層次受挫退回低層次需求</strong> ➔ 選<strong>阿德佛 ERG（挫折退化）</strong>。</li>
+                <li><strong>加薪與改善硬體只能消除不滿</strong> ➔ 選<strong>赫茲伯格保健因素</strong>。</li>
+                <li><strong>情境極端順遂或面臨重大危機</strong> ➔ 選<strong>低 LPC（任務導向）</strong>。</li>
+                <li><strong>遇到重大危安或性平通報不可妥協</strong> ➔ 選<strong>競爭（Thomas）</strong>。</li>
+                <li><strong>每個人最終升到不能勝任的職位</strong> ➔ 選<strong>彼得原理</strong>。</li>
+                <li><strong>冗員增加與工作膨脹填滿時間</strong> ➔ 選<strong>帕金森定律</strong>。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部控制與導航列 -->
+    <div class="deck-controls">
+      <div class="deck-info">
+        <span id="pageIndicator">1 / 10</span>
+        <span>·</span>
+        <span style="color:#7F8C8D;">教育行政與法規</span>
+      </div>
+
+      <div class="page-dots" id="dotsContainer"></div>
+
+      <div style="display:flex;gap:8px;">
+        <button class="btn-nav" id="prevBtn" onclick="prevSlide()" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          上一頁
+        </button>
+        <button class="btn-nav" id="nextBtn" onclick="nextSlide()">
+          下一頁
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <button class="btn-nav" onclick="toggleFullScreen()" title="全螢幕播放">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide-item');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const progressBar = document.getElementById('progressBar');
+    const dotsContainer = document.getElementById('dotsContainer');
+
+    // 建立圓點導航
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = `page-dot ${i === 0 ? 'active' : ''}`;
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDeck() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+
+      const dots = document.querySelectorAll('.page-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentSlide);
+      });
+
+      pageIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+
+      prevBtn.disabled = (currentSlide === 0);
+      nextBtn.disabled = (currentSlide === totalSlides - 1);
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateDeck();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // 鍵盤左右鍵切頁
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    // 全螢幕切換
+    function toggleFullScreen() {
+      const stage = document.getElementById('deckStage');
+      if (!document.fullscreenElement) {
+        stage.requestFullscreen().catch(err => {
+          alert(`無法進入全螢幕：${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    updateDeck();
+  </script>
+</body>
+</html>

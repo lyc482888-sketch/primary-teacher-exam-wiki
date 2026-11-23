@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教育測驗與評量核心考點手帳 —— 國小教甄高分速成</title>
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-light: #6366f1;
+      --primary-dark: #312e81;
+      --secondary: #0284c7;
+      --accent-coral: #f43f5e;
+      --accent-amber: #d97706;
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --card-border: rgba(99, 102, 241, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --highlight: #38bdf8;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, #0f172a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* 頂部導覽列 */
+    header {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      color: #e0e7ff;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .slide-progress {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-feature-settings: "tnum";
+    }
+
+    /* 主舞台投影片容器 */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .slide-deck {
+      width: 100%;
+      max-width: 1100px;
+      min-height: 620px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.15);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-item {
+      display: none;
+      flex-direction: column;
+      padding: 40px 48px;
+      height: 100%;
+      flex: 1;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-item.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 投影片標題與標籤 */
+    .slide-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .slide-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--highlight);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .slide-badge {
+      background: rgba(99, 102, 241, 0.18);
+      color: #c7d2fe;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* 投影片內容佈局 */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* 網格佈局 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    /* 內容小卡片 */
+    .content-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .content-box:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      background: rgba(15, 23, 42, 0.75);
+      transform: translateY(-2px);
+    }
+
+    .content-box.highlight-primary {
+      border-left: 4px solid var(--primary-light);
+    }
+
+    .content-box.highlight-blue {
+      border-left: 4px solid var(--secondary);
+    }
+
+    .content-box.highlight-coral {
+      border-left: 4px solid var(--accent-coral);
+    }
+
+    .content-box.highlight-amber {
+      border-left: 4px solid var(--accent-amber);
+    }
+
+    .box-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* 重點文字標記 */
+    .hl {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .hl-coral {
+      color: #fb7185;
+      font-weight: 700;
+    }
+
+    .hl-amber {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    .hl-green {
+      color: #34d399;
+      font-weight: 700;
+    }
+
+    /* 結構化清單 */
+    ul.styled-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    ul.styled-list li {
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    ul.styled-list li::before {
+      content: "➔";
+      position: absolute;
+      left: 0;
+      color: var(--primary-light);
+      font-size: 0.85rem;
+    }
+
+    /* 表格樣式 */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #93c5fd;
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    table.data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      line-height: 1.45;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    /* 公式徽章卡 */
+    .formula-banner {
+      background: linear-gradient(90deg, rgba(67, 56, 202, 0.25) 0%, rgba(2, 132, 199, 0.2) 100%);
+      border: 1px dashed rgba(99, 102, 241, 0.4);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .formula-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .formula-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .formula-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #f8fafc;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* 底部控制列 */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    button.btn {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #e0e7ff;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.btn:hover:not(:disabled) {
+      background: var(--primary);
+      border-color: var(--primary-light);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    button.btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      background: var(--primary-light);
+      width: 26px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+    }
+
+    /* 鍵盤提示 */
+    .kbd-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: inherit;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .slide-deck {
+        min-height: auto;
+      }
+      .slide-item {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header>
+    <div class="brand">
+      <span class="brand-badge">國小教甄</span>
+      <span>教育測驗與評量核心考點手帳</span>
+    </div>
+    <div class="slide-progress" id="slideProgress">第 1 / 10 頁</div>
+  </header>
+
+  <!-- 投影片內容舞台 -->
+  <main>
+    <div class="slide-deck">
+
+      <!-- Slide 1: 封面與全圖景 -->
+      <section class="slide-item active" data-index="1">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">全景導航 ➔ 國小教甄核心題庫</div>
+            <div class="slide-title">教育測驗與評量：十萬火急破題體系</div>
+            <div class="slide-subtitle">依據 Sharon 73頁筆記精華提煉，鎖定初試高頻計算、概念辨析與命題實戰</div>
+          </div>
+          <div class="slide-badge">考科投報率之王</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="content-box highlight-primary">
+              <div class="box-title">📊 測驗心理計量三大基石</div>
+              <ul class="styled-list">
+                <li><span class="hl">信度理論</span>：古典測驗 CTT、真分數模型、各類信度誤差來源。</li>
+                <li><span class="hl">效度檢驗</span>：內容/效標/構念效度、內外在效度威脅。</li>
+                <li><span class="hl">測量標準誤（SEM）</span>：真分數信賴區間精準推算。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-blue">
+              <div class="box-title">⚖️ 評量架構與分數解釋</div>
+              <ul class="styled-list">
+                <li><span class="hl">常模參照 vs 標準參照</span>：NRT 與 CRT 十大維度橫向對照。</li>
+                <li><span class="hl">標準分數體系</span>：Z、T、離差智商、PR、偏態順序秒殺。</li>
+                <li><span class="hl">目標分類學</span>：Bloom 2001 二維矩陣（知識 × 認知歷程）。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">🎯 現場實作與試題分析</div>
+              <ul class="styled-list">
+                <li><span class="hl">多元替代評量</span>：真實、實作、卷宗檔案、動態（ZPD）。</li>
+                <li><span class="hl">試題分析二本柱</span>：難度 P 值、鑑別度 D 值與誘答力。</li>
+                <li><span class="hl">研究法與統計</span>：t 考驗、ANOVA、ANCOVA、抽樣口訣。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="formula-banner">
+            <div class="formula-item">
+              <span class="formula-label">古典真分數模型</span>
+              <span class="formula-code">X = T + E</span>
+            </div>
+            <div class="formula-item">
+              <span class="formula-label">測量標準誤</span>
+              <span class="formula-code">SEM = Sx × √(1 - rxx)</span>
+            </div>
+            <div class="formula-item">
+              <span class="formula-label">試題難度</span>
+              <span class="formula-code">P = (PH + PL) / 2</span>
+            </div>
+            <div class="formula-item">
+              <span class="formula-label">試題鑑別度</span>
+              <span class="formula-code">D = PH - PL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: 信度理論與誤差來源 -->
+      <section class="slide-item" data-index="2">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">信度篇 ➔ 一致性與穩定性</div>
+            <div class="slide-title">古典測驗信度類型與誤差來源大對照</div>
+            <div class="slide-subtitle">信度是效度的「必要非充分條件」，隨機誤差直接戕害信度</div>
+          </div>
+          <div class="slide-badge">必考指標</div>
+        </div>
+        <div class="slide-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>信度類型</th>
+                  <th>施測方式與次數</th>
+                  <th>考驗之一致性特質</th>
+                  <th>核心誤差來源（考題必考）</th>
+                  <th>重要公式與注意事項</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="hl">重測信度</span></td>
+                  <td>同一份測驗，間隔時間施測 2 次</td>
+                  <td>跨時間之<span class="hl">穩定性</span></td>
+                  <td><span class="hl-coral">時間抽樣誤差</span>（身心變化、記憶練習）</td>
+                  <td>間隔太短有記憶效應；太長受成熟學習影響。</td>
+                </tr>
+                <tr>
+                  <td><span class="hl">複本信度</span></td>
+                  <td>施測等值兩份複本（同時或間隔）</td>
+                  <td>同時：<span class="hl">等值性</span>；間隔：<span class="hl">穩定等值</span></td>
+                  <td>同時：<span class="hl-coral">內容抽樣</span>；間隔：<span class="hl-coral">內容＋時間抽樣</span></td>
+                  <td>最嚴格的信度估計，但編製真正等值複本極難。</td>
+                </tr>
+                <tr>
+                  <td><span class="hl">折半信度</span></td>
+                  <td>單次施測，奇偶數題目拆成兩半</td>
+                  <td>題項抽樣之<span class="hl">內部一致性</span></td>
+                  <td><span class="hl-coral">內容抽樣誤差</span></td>
+                  <td><span class="hl-amber">★ 必須以斯布公式（2rh / 1+rh）校正回全測驗</span>。</td>
+                </tr>
+                <tr>
+                  <td><span class="hl">庫李信度</span></td>
+                  <td>單次施測，KR-20 / KR-21</td>
+                  <td>題目同質性與內部一致性</td>
+                  <td><span class="hl-coral">內容抽樣與內容異質性</span></td>
+                  <td><span class="hl-coral">★ 僅限「二元計分（對/錯、1分/0分）」客觀題！</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hl">Cronbach α</span></td>
+                  <td>單次施測多元計分題目</td>
+                  <td>問卷量表之內部一致性</td>
+                  <td><span class="hl-coral">內容抽樣與內容異質性</span></td>
+                  <td><span class="hl-green">★ 廣泛適用於李克特 5 點量表、多元給分題。</span></td>
+                </tr>
+                <tr>
+                  <td><span class="hl">評分者信度</span></td>
+                  <td>多位評審獨立對同一作答評分</td>
+                  <td>評分者間主觀客觀度</td>
+                  <td><span class="hl-coral">評分者個人偏見、寬嚴標準漂移</span></td>
+                  <td>2位評分者用 Spearman 相關；3位以上用 <span class="hl">Kendall W</span>。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="content-box highlight-amber">
+            <div class="box-desc">
+              <span class="hl-amber">⚠️ 誤差辨析口訣</span>：
+              <strong>系統誤差（偏誤）</strong>（如量尺固定加5分）➔ <span class="hl-green">不影響信度</span>，但戕害效度；
+              <strong>隨機誤差</strong>（噪音、身體不適、猜測）➔ <span class="hl-coral">直接降低信度</span>！
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: 效度理論與內外在效度 -->
+      <section class="slide-item" data-index="3">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">效度篇 ➔ 測驗的最關鍵特徵</div>
+            <div class="slide-title">四大效度類型與實驗研究內外在威脅</div>
+            <div class="slide-subtitle">效度上限等於信度的平方根（Validity ≤ √Reliability）</div>
+          </div>
+          <div class="slide-badge">實驗設計題眼</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-blue">
+              <div class="box-title">🎯 測驗效度四大面向</div>
+              <ul class="styled-list">
+                <li><span class="hl">內容效度</span>：試題抽樣的代表性。成就測驗首選，依據<span class="hl-amber">雙向細目表</span>審查。</li>
+                <li><span class="hl">效標關聯效度</span>：與外在標準之相關。
+                  <br>➔ <strong>同時效度</strong>（效標當下取得）；
+                  <br>➔ <strong>預測效度</strong>（性向測驗首重，效標在未來取得）。
+                  <br>➔ <strong>效標污染</strong>：評分者預先看過測驗分帶有先入偏見。
+                </li>
+                <li><span class="hl">構念效度</span>：符合理論心理架構程度。
+                  <br>➔ <strong>聚斂效度</strong>（不同法測同特質要高相關）；
+                  <br>➔ <strong>區辨效度</strong>（同法測不同特質要低相關）。工具：因素分析、MTMM 矩陣。
+                </li>
+                <li><span class="hl">後果效度</span>：Messick 提出，評估測驗帶來的社會長遠衝擊。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">⚡ 內在效度 vs 外在效度高頻陷阱</div>
+              <ul class="styled-list">
+                <li><span class="hl-coral">統計迴歸效應</span>：挑選「極端高分」或「極端低分」受試者，後測必然自然向平均數靠攏！</li>
+                <li><span class="hl-coral">強亨利效應（John Henry）</span>：<strong>控制組</strong>不甘示弱，激發超常努力競爭！（內在效度威脅）</li>
+                <li><span class="hl-coral">霍桑效應（Hawthorne）</span>：<strong>受試者</strong>因知道自己被特別挑選注視而表現大增！（外在生態效度威脅）</li>
+                <li><span class="hl-coral">歷史與成熟</span>：外部偶發大事件（歷史） vs 自然身心成長疲勞（成熟）。</li>
+                <li><span class="hl-coral">樣本亡佚</span>：受試者中途退出破壞隨機均等。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="formula-banner">
+            <div class="formula-item">
+              <span class="formula-label">效度與信度數學關係</span>
+              <span class="formula-code">rxy ≤ √(rxx)</span>
+            </div>
+            <div class="formula-item">
+              <span class="formula-label">例題速解</span>
+              <span class="formula-code">信度 0.64 ➔ 效度上限 √0.64 = 0.80</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: 測量標準誤與信賴區間 -->
+      <section class="slide-item" data-index="4">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">計算篇 ➔ 分數可信區間推估</div>
+            <div class="slide-title">測量標準誤（SEM）與 95% 信賴區間解題法</div>
+            <div class="slide-subtitle">信度愈高，SEM 愈小；當信度等於 1 時，SEM = 0</div>
+          </div>
+          <div class="slide-badge">必得 2 分計算題</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-primary">
+              <div class="box-title">📐 SEM 核心公式與原理</div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: #a5b4fc; text-align: center; padding: 12px 0;">
+                SEM = Sx × √(1 - rxx)
+              </div>
+              <ul class="styled-list">
+                <li><code>Sx</code>：測驗實得分數的標準差。</li>
+                <li><code>rxx</code>：測驗的信度係數。</li>
+                <li><strong>物理意義</strong>：個人實得分數圍繞真正分數的變異標準差。</li>
+                <li><strong>反比關係</strong>：信度愈高 ➔ SEM 愈小 ➔ 測驗分數估計愈精準。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-amber">
+              <div class="box-title">🎯 常態分佈三大信賴區間</div>
+              <div class="table-container">
+                <table class="data-table">
+                  <tbody>
+                    <tr>
+                      <td><strong>68% 信賴區間</strong></td>
+                      <td><code>實得分數 X ± 1(SEM)</code></td>
+                    </tr>
+                    <tr>
+                      <td><strong>95% 信賴區間</strong></td>
+                      <td><code>實得分數 X ± 1.96(SEM)</code><br><span class="hl-amber">★ 教甄計算常概算為 X ± 2(SEM)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>99% 信賴區間</strong></td>
+                      <td><code>實得分數 X ± 2.58(SEM)</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="content-box highlight-coral">
+            <div class="box-title">🔥 歷屆教甄實戰速解範例</div>
+            <div class="box-desc">
+              <strong>【題目】</strong>某國小數學成就測驗標準差為 <strong>10 分</strong>，信度為 <strong>0.84</strong>。小明實得 <strong>70 分</strong>，請問在 95% 信賴水準下，小明的真分數區間為何？<br>
+              <strong>【解題步驟】</strong><br>
+              1. 算 SEM：<code>SEM = 10 × √(1 - 0.84) = 10 × √0.16 = 10 × 0.4 = 4 分</code><br>
+              2. 算 95% CI：<code>70 ± 2 × (4) = 70 ± 8</code> ➔ 答案秒選 <span class="hl-coral">[ 62 分 , 78 分 ]</span>！
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: 常模參照 vs 標準參照大對照 -->
+      <section class="slide-item" data-index="5">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">體系篇 ➔ NRT vs CRT</div>
+            <div class="slide-title">常模參照 vs 標準參照（效標參照）全景對照</div>
+            <div class="slide-subtitle">常模參照看「相對排名（人比人）」，標準參照看「是否精熟（人比標準）」</div>
+          </div>
+          <div class="slide-badge">概念高頻考點</div>
+        </div>
+        <div class="slide-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>比較向度</th>
+                  <th>常模參照測驗（NRT）</th>
+                  <th>標準／效標參照測驗（CRT）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>比較基準</strong></td>
+                  <td><span class="hl">與他人比較</span>（常模團體之平均表現）</td>
+                  <td><span class="hl-green">與既定標準比較</span>（精熟及格門檻 Cutoff）</td>
+                </tr>
+                <tr>
+                  <td><strong>主要目的</strong></td>
+                  <td><strong>甄選選拔、排名篩選、劃分優劣</strong></td>
+                  <td><strong>評估教學成效、診斷補救、資格檢定</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>試題難度取向</strong></td>
+                  <td>平均難度 <span class="hl-amber">P ≈ 0.50 最佳</span>；排除全員答對題</td>
+                  <td>配合教學目標；<span class="hl-green">即使 P=0.99 極易也不排除</span></td>
+                </tr>
+                <tr>
+                  <td><strong>試題鑑別度要求</strong></td>
+                  <td><strong>高度追求高鑑別度</strong>（D 愈高愈好，D ≥ 0.40）</td>
+                  <td>不刻意追求高 D，能區分精熟/未精熟即可</td>
+                </tr>
+                <tr>
+                  <td><strong>分數轉換型態</strong></td>
+                  <td><strong>PR值、Z分數、T分數、離差智商、標準九</strong></td>
+                  <td><strong>及格/不及格、百分比通過率、等級（A/B/C）</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>信度檢驗方法</strong></td>
+                  <td>相關係數（重測、折半、α、KR-20）</td>
+                  <td>分類一致性指標（<strong>PA、Cohen's Kappa κ</strong>）</td>
+                </tr>
+                <tr>
+                  <td><strong>期望分配型態</strong></td>
+                  <td><strong>常態分配</strong>（鐘形對稱，中間多兩極少）</td>
+                  <td><strong>負偏態</strong>（精熟學習，多數人達到高分）</td>
+                </tr>
+                <tr>
+                  <td><strong>教甄現場經典實例</strong></td>
+                  <td><strong>國小教師甄試初試（教甄）</strong>、資優鑑定</td>
+                  <td><strong>教師資格考試（教檢）</strong>、游泳 25m 檢定</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: 標準分數轉換與偏態分配 -->
+      <section class="slide-item" data-index="6">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">統計量尺篇 ➔ Z, T, IQ, PR</div>
+            <div class="slide-title">標準分數轉換體系與偏態大小順序口訣</div>
+            <div class="slide-subtitle">中位數永遠在正中間；偏向哪邊，平均數就被極端值往哪邊拖拽！</div>
+          </div>
+          <div class="slide-badge">必背口訣庫</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-blue">
+              <div class="box-title">📊 標準分數四大金剛換算表</div>
+              <ul class="styled-list">
+                <li><span class="hl">Z 分數</span>：<code>Z = (X - M) / S</code>（平均 0，標準差 1）</li>
+                <li><span class="hl">T 分數</span>：<code>T = 10Z + 50</code>（平均 50，標準差 10）</li>
+                <li><span class="hl">魏氏 IQ</span>：<code>IQ = 15Z + 100</code>（平均 100，標準差 15）</li>
+                <li><span class="hl">標準九</span>：<code>Stanine = 2Z + 5</code>（平均 5，標準差 2）</li>
+              </ul>
+              <div class="formula-banner" style="margin-top: 8px;">
+                <span class="hl">常態分佈百分比</span>：
+                Z=0 (PR 50) ➔ Z=+1 (PR 84) ➔ Z=+2 (PR 98)
+              </div>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">⚡ 偏態分配大小順序（教甄秒殺）</div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>偏態種類</th>
+                      <th>試題難易度</th>
+                      <th>大小順序（考題必背）</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="hl-green">常態分配</span></td>
+                      <td>難度適中（P≈0.5）</td>
+                      <td><strong>平均數 ＝ 中位數 ＝ 眾數</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="hl-coral">正偏態（右偏）</span></td>
+                      <td><strong>題目太難</strong>（低分多）</td>
+                      <td><strong>眾數 < 中位數 < 平均數</strong><br><small>尾巴在右，平均數被極端高分拉大！</small></td>
+                    </tr>
+                    <tr>
+                      <td><span class="hl-amber">負偏態（左偏）</span></td>
+                      <td><strong>題目太易</strong>（高分多）</td>
+                      <td><strong>平均數 < 中位數 < 眾數</strong><br><small>尾巴在左，平均數被極端低分拉小！</small></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="content-box highlight-primary">
+            <div class="box-desc">
+              <span class="hl-primary">★ 秒殺實例</span>：某次考試「平均數 40，中位數 55，眾數 70」，試問為何種分配？
+              ➔ <strong>平均數 (40) < 中位數 (55) < 眾數 (70)</strong> ➔ 平均數最小，尾巴在左 ➔ <span class="hl-coral">負偏態（偏左偏態），代表題目太容易！</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: 布魯姆教學目標分類學與行為目標 -->
+      <section class="slide-item" data-index="7">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">目標篇 ➔ 雙向細目表之魂</div>
+            <div class="slide-title">Bloom 2001 修訂版二維矩陣與行為目標</div>
+            <div class="slide-subtitle">由 Anderson 修訂：知識向度（名詞） × 認知歷程向度（動詞）</div>
+          </div>
+          <div class="slide-badge">素養命題準則</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-primary">
+              <div class="box-title">🧠 認知歷程向度六層次（由低至高）</div>
+              <ul class="styled-list">
+                <li><strong>1. 記憶（Remember）</strong>：提取長效記憶（識別、回憶）。</li>
+                <li><strong>2. 了解（Understand）</strong>：建構意義（<span class="hl-amber">詮釋、舉例、分類、摘要、推論、比較、解釋</span>）。</li>
+                <li><strong>3. 應用（Apply）</strong>：在新情境執行程序（執行、實作）。</li>
+                <li><strong>4. 分析（Analyze）</strong>：分解整體探討架構（區辨、組織、歸因）。</li>
+                <li><strong>5. 評鑑（Evaluate）</strong>：依規準做客觀批判（檢查、評論）。</li>
+                <li><strong>6. 創造（Create）★ 最高層</strong>：整合要素產生原創成品（規劃、產生、製作）。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-blue">
+              <div class="box-title">📚 知識向度四向度</div>
+              <ul class="styled-list">
+                <li><span class="hl">事實知識</span>：術語、特定細節（如記住九九乘法）。</li>
+                <li><span class="hl">概念知識</span>：分類、原則、通則與理論模型。</li>
+                <li><span class="hl">程序知識</span>：演算法、技術方法、操作步驟（How to do）。</li>
+                <li><span class="hl">後設認知知識</span>：策略性知識、對自我認知與監控之了解。</li>
+              </ul>
+              <div class="box-title" style="margin-top: 10px;">🎯 目標撰寫學派對照</div>
+              <ul class="styled-list">
+                <li><span class="hl-coral">梅傑 Mager 行為目標（ABCD 原則）</span>：對象、外顯動詞、情境條件、評分規準。客觀可測。</li>
+                <li><span class="hl-green">艾斯納 Eisner 表意目標</span>：注重情境中開放、獨特體驗，不預設標準答案。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: 多元替代評量光譜 -->
+      <section class="slide-item" data-index="8">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">評量革新篇 ➔ 素養導向</div>
+            <div class="slide-title">多元替代評量：真實、實作、卷宗檔案與動態評量</div>
+            <div class="slide-subtitle">突破紙筆測驗侷限，兼顧歷程、情境脈絡與認知可塑性</div>
+          </div>
+          <div class="slide-badge">現場教學必備</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-4">
+            <div class="content-box highlight-primary">
+              <div class="box-title">🌍 真實評量</div>
+              <div class="box-desc">
+                在<strong>逼真、真實的生活情境</strong>中，評量學生應用知識解決實際問題的整合能力。（如規劃園遊會記帳）。
+              </div>
+            </div>
+            <div class="content-box highlight-blue">
+              <div class="box-title">🛠️ 實作評量</div>
+              <div class="box-desc">
+                要求學生動手操作或展現實質產出，<strong>兼顧歷程與結果</strong>。採 <span class="hl">Rubrics（評分規程）</span> 確保客觀性。
+              </div>
+            </div>
+            <div class="content-box highlight-amber">
+              <div class="box-title">📁 檔案卷宗評量</div>
+              <div class="box-desc">
+                長期系統化蒐集學生代表作。<strong>靈魂核心是「學生自我省思（Self-reflection）」</strong>，分為展示型與進步型。
+              </div>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">🚀 動態評量</div>
+              <div class="box-desc">
+                源自 <strong>Vygotsky ZPD</strong>。採「<span class="hl-coral">前測 ➔ 介入教學 ➔ 後測</span>」三階段，評估學習潛能與可塑性。
+              </div>
+            </div>
+          </div>
+          <div class="content-box highlight-green">
+            <div class="box-title">🌟 評量時機與功能四大向度速記</div>
+            <div class="grid-2" style="margin-top: 6px;">
+              <div><strong>安置性評量</strong>：教學前施測，評估<span class="hl">起點行為</span>與先備知識，決定分班。</div>
+              <div><strong>形成性評量</strong>：教學中進行，提供<span class="hl">即時回饋</span>，隨堂修正教學進度。</div>
+              <div><strong>診斷性評量</strong>：針對學生<span class="hl-coral">持續且反覆的嚴重學習障礙</span>，找出根本病因以實施補救教學。</div>
+              <div><strong>總結性評量</strong>：教學單元結束或期末，評定學業成就等第，驗收目標。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: 紙筆測驗命題原則與試題分析 -->
+      <section class="slide-item" data-index="9">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">命題技術篇 ➔ 難度、鑑別度與誘答力</div>
+            <div class="slide-title">紙筆測驗試題分析與誘答選項判讀準則</div>
+            <div class="slide-subtitle">Kelly 27% 高低分組法：P 值看難易，D 值看區辨力</div>
+          </div>
+          <div class="slide-badge">實作試卷核心</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-blue">
+              <div class="box-title">📐 試題分析兩大核心公式</div>
+              <ul class="styled-list">
+                <li><span class="hl">試題難度（P）</span>：<code>P = (PH + PL) / 2</code>
+                  <br>➔ <strong>P 愈大愈簡單，P 愈小愈困難！</strong>
+                  <br>➔ 優良區間：<code>0.40 ≤ P ≤ 0.70</code>，最佳為 0.50。
+                </li>
+                <li><span class="hl">試題鑑別度（D）</span>：<code>D = PH - PL</code>
+                  <br>➔ <strong>D ≥ 0.40</strong>：極優良試題。
+                  <br>➔ <strong>0.30 ≤ D ≤ 0.39</strong>：良好試題。
+                  <br>➔ <strong>D < 0.20</strong>：劣質需淘汰。
+                  <br>➔ <span class="hl-coral">D 為負值（反向題）</span>：答案公佈錯誤或語意反向誤導，<strong>必須立即刪除停用</strong>！
+                </li>
+              </ul>
+            </div>
+            <div class="content-box highlight-amber">
+              <div class="box-title">🕵️ 誘答力分析三原則</div>
+              <ul class="styled-list">
+                <li><strong>原則一</strong>：有效誘答項吸引的低分組人數應顯著多於高分組（<code>PL > PH</code>）。</li>
+                <li><strong>原則二</strong>：每個誘答選項都至少要有人選（0人選者等同廢項）。</li>
+                <li><strong>原則三（致命傷）</strong>：若誘答項吸引的高分組居然多於低分組（<code>PH > PL</code>），代表有嚴重邏輯瑕疵，必須重寫！</li>
+              </ul>
+              <div class="formula-banner" style="margin-top: 6px;">
+                <span class="hl-coral">命題大忌</span>：選擇題切忌使用「以上皆是」與「以上皆非」！
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: 教育統計與抽樣方法秒殺庫 -->
+      <section class="slide-item" data-index="10">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">實證研究法篇 ➔ 統計與抽樣</div>
+            <div class="slide-title">教育統計推論檢定與抽樣方法秒殺庫</div>
+            <div class="slide-subtitle">掌握方法適用時機，一秒鎖定教甄題目正解</div>
+          </div>
+          <div class="slide-badge">滿分通關</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-primary">
+              <div class="box-title">📊 統計檢定方法選用指南</div>
+              <ul class="styled-list">
+                <li><span class="hl">獨立樣本 t 考驗</span>：比較<strong>兩組獨立群體</strong>平均數（如男女數學成績比較）。</li>
+                <li><span class="hl">成對樣本 t 考驗</span>：比較<strong>同一組學生前後測</strong>之平均數差異。</li>
+                <li><span class="hl">變異數分析（ANOVA / F 考驗）</span>：比較<strong>三組以上群體</strong>之平均數差異。</li>
+                <li><span class="hl">共變數分析（ANCOVA）</span>：現成分班無法隨機，<strong>將前測成績視為干擾變項（共變項）予以統計控制</strong>。</li>
+                <li><span class="hl">卡方考驗（χ²）</span>：<strong>類別變項（次數、百分比）</strong>之適合度與獨立性檢定。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">🎯 四大抽樣方法秒殺口訣</div>
+              <ul class="styled-list">
+                <li><span class="hl-green">分層隨機抽樣</span>：
+                  <br>➔ <strong>口訣：【組間異質、組內同質】</strong>
+                  <br>依族群、城鄉按比例抽樣，母體代表性最佳！
+                </li>
+                <li><span class="hl-coral">叢集抽樣（部落抽樣）</span>：
+                  <br>➔ <strong>口訣：【組間同質、組內異質】</strong>
+                  <br>以整班、整校為抽樣單位（整組全測），節省成本。</li>
+                <li><span class="hl">系統抽樣</span>：每隔 k 個元素抽取一個（<code>k = N/n</code>）。</li>
+                <li><span class="hl">簡單隨機抽樣</span>：抽籤、亂數表，人人機率均等獨立。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="content-box highlight-amber">
+            <div class="box-desc">
+              <span class="hl-amber">🌟 行動研究（Action Research）</span>：
+              由 <strong>Lewin</strong> 提出、<strong>Corey</strong> 引入教育。「為行動而研究、在行動中研究、由行動者研究」；教師即研究者，旨在解決現場實務問題，歷程為螺旋反思循環！
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 底部控制器 -->
+  <footer>
+    <div class="controls">
+      <button class="btn" id="prevBtn" disabled>◀ 上一頁</button>
+      <button class="btn" id="nextBtn">下一頁 ▶</button>
+    </div>
+    <div class="dots-container" id="dotsContainer"></div>
+    <div class="kbd-hint">
+      提示：可用鍵盤 <kbd>←</kbd> <kbd>→</kbd> 或 <kbd>Space</kbd> 切換
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressText = document.getElementById('slideProgress');
+    const dotsContainer = document.getElementById('dotsContainer');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    // 建立小圓點
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentIndex);
+      });
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+      progressText.textContent = `第 ${currentIndex + 1} / ${totalSlides} 頁`;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === totalSlides - 1;
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentIndex = index;
+        updateSlide();
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalSlides - 1) {
+        currentIndex++;
+        updateSlide();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        if (currentIndex < totalSlides - 1) {
+          currentIndex++;
+          updateSlide();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlide();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agents 是什麼？—— 零基礎通俗教學手帳</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --secondary: #06b6d4;
+      --accent: #f43f5e;
+      --accent-gold: #f59e0b;
+      --bg: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.9);
+      --card-border: rgba(99, 102, 241, 0.3);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --highlight: #38bdf8;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at 10% 10%, #1e1b4b 0%, #0b0f19 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* 頂部導覽列 */
+    header {
+      background: rgba(11, 15, 25, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      color: #e0e7ff;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .slide-progress {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-feature-settings: "tnum";
+    }
+
+    /* 主舞台 */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .slide-deck {
+      width: 100%;
+      max-width: 1080px;
+      min-height: 620px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-item {
+      display: none;
+      flex-direction: column;
+      padding: 40px 48px;
+      height: 100%;
+      flex: 1;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-item.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 標頭 */
+    .slide-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .slide-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .slide-badge {
+      background: rgba(99, 102, 241, 0.2);
+      color: #c7d2fe;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* 內容 */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .content-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .content-box:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      transform: translateY(-2px);
+    }
+
+    .content-box.highlight-primary { border-left: 4px solid var(--primary); }
+    .content-box.highlight-cyan { border-left: 4px solid var(--secondary); }
+    .content-box.highlight-coral { border-left: 4px solid var(--accent); }
+    .content-box.highlight-gold { border-left: 4px solid var(--accent-gold); }
+
+    .box-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .hl { color: #38bdf8; font-weight: 700; }
+    .hl-cyan { color: #22d3ee; font-weight: 700; }
+    .hl-coral { color: #fb7185; font-weight: 700; }
+    .hl-gold { color: #fbbf24; font-weight: 700; }
+
+    ul.styled-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    ul.styled-list li {
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    ul.styled-list li::before {
+      content: "➔";
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-size: 0.85rem;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #93c5fd;
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    table.data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .code-flow {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px dashed rgba(99, 102, 241, 0.35);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      color: #a5f3fc;
+      line-height: 1.6;
+    }
+
+    /* 底部控制列 */
+    footer {
+      background: rgba(11, 15, 25, 0.9);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    button.btn {
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #e0e7ff;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.btn:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    button.btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      background: var(--secondary);
+      width: 26px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+    }
+
+    .kbd-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .slide-item { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header>
+    <div class="brand">
+      <span class="brand-badge">入門必備</span>
+      <span>AI Agents 是什麼？—— 零基礎通俗教學手帳</span>
+    </div>
+    <div class="slide-progress" id="slideProgress">第 1 / 10 頁</div>
+  </header>
+
+  <!-- 主舞台 -->
+  <main>
+    <div class="slide-deck">
+
+      <!-- Slide 1: 封面 -->
+      <section class="slide-item active" data-index="1">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">入門第一課 ➔ 概念躍遷</div>
+            <div class="slide-title">從「會聊天的 AI」到「能辦事的智慧助理」</div>
+            <div class="slide-subtitle">用最通俗易懂的語言，帶你一次搞懂 AI Agents（人工智慧代理人）的核心原理</div>
+          </div>
+          <div class="slide-badge">教學型簡報</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="content-box highlight-primary">
+              <div class="box-title">💬 過去：Chatbot 聊天機器人</div>
+              <div class="box-desc">
+                像一個**只能坐在椅子上的顧問**。<br>
+                你問一句、他答一句。雖然懂得很多，但沒有手也沒有腳，無法幫你實際操作電腦或出門跑腿。
+              </div>
+            </div>
+            <div class="content-box highlight-cyan">
+              <div class="box-title">🤖 現在：AI Agent 智慧代理人</div>
+              <div class="box-desc">
+                像一個**主動能幹的得力特助**。<br>
+                你給他一個目標（例如：「幫我寫好這份作業並上傳到 GitHub」），他會自己規劃步驟、操作工具、自我檢查並搞定一切！
+              </div>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">🚀 為什麼現在每個人都在談 Agent？</div>
+              <div class="box-desc">
+                因為我們不再需要自己寫幾千字繁瑣指令。AI 開始具備「自主性（Agency）」與「執行力」，真正走進我們的現實工作流程！
+              </div>
+            </div>
+          </div>
+          <div class="content-box highlight-coral">
+            <div class="box-desc" style="text-align: center; font-size: 1.05rem;">
+              🌟 <strong>一句話定義</strong>：AI Agent ＝ <span class="hl">強大大腦（LLM）</span> ＋ <span class="hl-cyan">感知環境（感官）</span> ＋ <span class="hl-gold">執行工具（雙手）</span> ＋ <span class="hl-coral">長效記憶（筆記本）</span>！
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: 傳統 Chatbot vs AI Agent 對照 -->
+      <section class="slide-item" data-index="2">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">核心辨析 ➔ 根本差異</div>
+            <div class="slide-title">傳統 Chatbot vs AI Agent 全方位對照</div>
+            <div class="slide-subtitle">為什麼換了一個字「Agent」，能力卻發生了翻天覆地的躍升？</div>
+          </div>
+          <div class="slide-badge">生動比喻</div>
+        </div>
+        <div class="slide-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>比較向度</th>
+                  <th>傳統對話機器人（Chatbot）</th>
+                  <th>智慧代理人（AI Agent）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>生動比喻</strong></td>
+                  <td>圖書館管理員（你問才答，只說不做）</td>
+                  <td><span class="hl-cyan">超級個人秘書</span>（交代目標，自動辦妥）</td>
+                </tr>
+                <tr>
+                  <td><strong>互動模式</strong></td>
+                  <td>單次回合（Single-turn），被動等待指令</td>
+                  <td><span class="hl-cyan">自主循環（Multi-turn Loop）</span>，持續主動推進</td>
+                </tr>
+                <tr>
+                  <td><strong>工具操作能力</strong></td>
+                  <td>❌ <strong>沒有工具權限</strong>（無法查即時股票、無法建檔）</td>
+                  <td>✅ <span class="hl-green"><strong>具備工具調用</strong></span>（能上網搜尋、跑程式、建檔案）</td>
+                </tr>
+                <tr>
+                  <td><strong>出錯時的反應</strong></td>
+                  <td>❌ 給出自信的胡言亂語（幻覺），直到被人類抓包</td>
+                  <td>✅ <span class="hl-gold"><strong>具備自我反思機制（Reflexion）</strong></span>，報錯自動換招重試</td>
+                </tr>
+                <tr>
+                  <td><strong>任務規模</strong></td>
+                  <td>回答一道數學題、潤飾一封信件</td>
+                  <td>獨立建置一個 74 篇筆記的完整網站並發布到雲端</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: 五大超能力結構 -->
+      <section class="slide-item" data-index="3">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">解剖學 ➔ 經典架構</div>
+            <div class="slide-title">AI Agent 的「五大超能力」結構剖析</div>
+            <div class="slide-subtitle">如同人類一樣，Agent 也是由大腦、感官、四肢與記憶共同構成的完備實體</div>
+          </div>
+          <div class="slide-badge">核心架構</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="content-box highlight-primary">
+              <div class="box-title">🧠 1. 認知大腦（Brain / Planning）</div>
+              <div class="box-desc">
+                由強大的大型語言模型（LLM）擔任。<br>
+                負責理解人類抽象意圖、把困難的大任務拆解為 1, 2, 3 小步驟，並決定由誰來做。
+              </div>
+            </div>
+            <div class="content-box highlight-cyan">
+              <div class="box-title">👀 2. 感官知覺（Perception）</div>
+              <div class="box-desc">
+                Agent 的眼睛與耳朵。<br>
+                負責接收使用者的提示、讀取電腦畫面上的截圖、解析外部回傳的數據與終端機錯誤日誌。
+              </div>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">🛠️ 3. 執行工具（Action / Tools）</div>
+              <div class="box-desc">
+                Agent 操作世界的雙手。<br>
+                包含：檔案讀寫器、終端機命令、網頁瀏覽器、計算器與各種外部 API 連接器。
+              </div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="content-box highlight-coral">
+              <div class="box-title">📚 4. 記憶系統（Memory）</div>
+              <div class="box-desc">
+                <strong>短期工作記憶</strong>（正在讀取的對話視窗） ＋ <strong>長期外部記憶</strong>（長效保存的 LLM Wiki 與向量檢索資料庫），讓它永不遺忘歷史經驗。
+              </div>
+            </div>
+            <div class="content-box highlight-primary">
+              <div class="box-title">⚖️ 5. 自我反省（Reflexion）</div>
+              <div class="box-desc">
+                執行動作後自動「檢查結果對不對」。如果發現程式碼報錯或格式跑版，立即自動思考原因並修正策略，絕不死板硬幹！
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: 自主循環 Loop -->
+      <section class="slide-item" data-index="4">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">動態引擎 ➔ 自主思考圖景</div>
+            <div class="slide-title">它是怎麼運作的？自主思考循環（Loop / Graph）</div>
+            <div class="slide-subtitle">AI Agent 不是一次猜出答案，而是一步一步「觀察 ➔ 思考 ➔ 行動 ➔ 反思」</div>
+          </div>
+          <div class="slide-badge">作業評分核心</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-4">
+            <div class="content-box highlight-primary">
+              <div class="box-title">1. 感知環境</div>
+              <div class="box-desc">
+                <strong>Perceive</strong><br>
+                讀取使用者指派的任務、確認目前資料夾裡有什麼檔案、系統處於什麼狀態。
+              </div>
+            </div>
+            <div class="content-box highlight-cyan">
+              <div class="box-title">2. 制定計畫</div>
+              <div class="box-desc">
+                <strong>Plan & Think</strong><br>
+                思考：「為了完成這個目標，我現在第一步應該做什麼？需要調用哪一個工具？」
+              </div>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">3. 採取行動</div>
+              <div class="box-desc">
+                <strong>Act & Tool Call</strong><br>
+                真實呼叫工具執行命令（例如：寫入一個 Markdown 筆記、執行代碼）。
+              </div>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">4. 檢查與反思</div>
+              <div class="box-desc">
+                <strong>Reflect & Loop</strong><br>
+                閱讀工具執行的結果：「成功了嗎？有跑版嗎？」如果成功則邁向下一步，若失敗則回滾換招！
+              </div>
+            </div>
+          </div>
+          <div class="code-flow">
+            🔄 <strong>循環終止條件</strong>：直到所有子目標全部打勾完成 ➔ 給出最終成果；或者達到安全上限次數停止。
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: ReAct 思考框架實戰 -->
+      <section class="slide-item" data-index="5">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">前沿技術 ➔ 邊想邊做</div>
+            <div class="slide-title">經典 ReAct 框架：Reasoning ＋ Acting 實戰推演</div>
+            <div class="slide-subtitle">為什麼把「推理思考」與「動手行動」結合在一起，AI 的能力會大幅提升？</div>
+          </div>
+          <div class="slide-badge">實戰拆解</div>
+        </div>
+        <div class="slide-body">
+          <div class="content-box highlight-primary">
+            <div class="box-title">🎯 任務實例：「幫我把國小教甄測驗筆記轉換成對照表並檢查格式」</div>
+            <div class="code-flow">
+              <span class="hl-cyan">【Thought 1】</span>：使用者給了一份 73 頁測驗筆記，我需要先讀取信度與效度的章節。<br>
+              <span class="hl-gold">【Action 1】</span>：呼叫 <code>read_file(Path: "raw/測驗與評量.md")</code><br>
+              <span class="hl">【Observation 1】</span>：成功讀取文本，萃取出 CTT 真分數模型與四種效度定義。<br>
+              <br>
+              <span class="hl-cyan">【Thought 2】</span>：我需要將它們編成對照表，但我必須確保 Markdown 沒有 Unicode 跳脫亂碼。<br>
+              <span class="hl-gold">【Action 2】</span>：呼叫 <code>write_file(Path: "wiki/comparisons/常模vs標準.md")</code><br>
+              <span class="hl">【Observation 2】</span>：檔案寫入完成。<br>
+              <br>
+              <span class="hl-cyan">【Thought 3】</span>：我調用檢查腳本檢查排版，確認零破圖、零 ASCII 歪斜，目標圓滿達成！<br>
+              <span class="hl-coral">【Final Output】</span>：向使用者呈現完美渲染的 Wiki 與簡報。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: 工具調用（Tool Calling） -->
+      <section class="slide-item" data-index="6">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">裝上雙手 ➔ 連接世界</div>
+            <div class="slide-title">替 AI 裝上雙手：工具調用（Tool Calling）怎麼辦到的？</div>
+            <div class="slide-subtitle">模型不是魔法，它是透過標準化的「函數呼叫協議（Function Calling / MCP）」操作世界</div>
+          </div>
+          <div class="slide-badge">技術揭秘</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-cyan">
+              <div class="box-title">🔌 工具調用四步走</div>
+              <ul class="styled-list">
+                <li><strong>1. 註冊工具名冊</strong>：向 AI 提供工具說明書（例如：「我有搜尋工具、有檔案寫入工具」）。</li>
+                <li><strong>2. AI 發出指令</strong>：當 AI 想查資料，它會輸出一段精準指令（例如：<code>搜尋：2026年最新教育法規</code>）。</li>
+                <li><strong>3. 電腦替它執行</strong>：系統真正打開網路搜尋，拿到最新的網頁結果。</li>
+                <li><strong>4. 餵回給 AI 看</strong>：AI 閱讀真實結果後，給出有憑有據、絕不瞎掰的精準解答！</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">🌐 MCP：AI 時代的「Type-C」萬用接頭</div>
+              <div class="box-desc">
+                2024 年底誕生的 <strong>MCP（Model Context Protocol）</strong> 是目前全世界最火熱的開源標準。<br><br>
+                就像 Type-C 充電線可以插手機、筆電、相機一樣；有了 MCP，同一個 AI Agent 可以隨插即用世界上的任何資料庫、GitHub、Google Drive 或檔案管理系統！
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: 外部長效記憶體系（LLM Wiki） -->
+      <section class="slide-item" data-index="7">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">告別金魚腦 ➔ 終生知識</div>
+            <div class="slide-title">記憶體系：為什麼我們需要建立「LLM Wiki」？</div>
+            <div class="slide-subtitle">對話視窗再大都會滿，唯有「交織連結的 Markdown 檔案」才是永久長青的知識資產</div>
+          </div>
+          <div class="slide-badge">知識庫靈魂</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-coral">
+              <div class="box-title">⚠️ 一般問答的「記憶瓶頸」</div>
+              <ul class="styled-list">
+                <li><strong>對話視窗限制</strong>：聊得越久，前面的內容就開始遺忘（上下文被擠掉）。</li>
+                <li><strong>對話記憶是一次性的</strong>：關閉視窗後，辛苦討論出來的分析結論全部消失。</li>
+                <li><strong>傳統 RAG 欠缺連結</strong>：只靠片段搜尋，缺乏系統性的全貌脈絡。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-primary">
+              <div class="box-title">🌟 Karpathy 提出的「LLM Wiki」解方</div>
+              <ul class="styled-list">
+                <li><strong>文字沉澱為長效檔案</strong>：每次討論都變成永久的 Markdown 筆記。</li>
+                <li><strong>稠密雙向連結 <code>[[ ]]</code></strong>：概念之間互相穿透引用，形成大腦神經網絡。</li>
+                <li><strong>知識資產滾雪球</strong>：今天輸入的教育哲學，明天能自動跟教育行政做比較，越積累越聰明！</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: 多代理人協作（Multi-Agent Systems） -->
+      <section class="slide-item" data-index="8">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">群體智慧 ➔ 蜂群協作</div>
+            <div class="slide-title">團隊力量大：多代理人協作系統（Multi-Agent & Swarms）</div>
+            <div class="slide-subtitle">一個人走得快，一群人走得遠！當任務變得龐大，我們派出一支 AI 專家團隊</div>
+          </div>
+          <div class="slide-badge">進階協同</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="content-box highlight-primary">
+              <div class="box-title">👑 協調者（Coordinator）</div>
+              <div class="box-desc">
+                專案經理。<br>
+                負責看懂使用者的最終目標，將任務切分成多塊，分配給不同領域的專家，並整合審查最終報告。
+              </div>
+            </div>
+            <div class="content-box highlight-cyan">
+              <div class="box-title">🕵️ 研究員（Researcher Agent）</div>
+              <div class="box-desc">
+                資料探勘者。<br>
+                擁有讀檔與搜尋工具，負責深入數十頁 raw 資料，抓出核心關鍵字、年份與理論定義。
+              </div>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">🎨 排版審查員（Reviewer Agent）</div>
+              <div class="box-desc">
+                品質守門員。<br>
+                擁有批判性眼光，專門抓排版錯誤、表格對齊失真與跳脫亂碼，不通過就打回重修！
+              </div>
+            </div>
+          </div>
+          <div class="content-box highlight-coral">
+            <div class="box-desc" style="text-align: center;">
+              🐝 <strong>Swarm 蜂群模式</strong>：面對 100 份不同的考題，一口氣派生 10 個小兵同時平行解題，10 秒內搞定原本需要一小時的工作！
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: AI Agents 改變教學與學習 -->
+      <section class="slide-item" data-index="9">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">落地實踐 ➔ 教育未來式</div>
+            <div class="slide-title">AI Agents 如何改變我們的學習與教學？</div>
+            <div class="slide-subtitle">告別死記硬背，迎接「一對一專屬家教」與「全能智慧研究助理」</div>
+          </div>
+          <div class="slide-badge">教學現場應用</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="content-box highlight-primary">
+              <div class="box-title">🧑‍🏫 1. 蘇格拉底式智慧家教</div>
+              <div class="box-desc">
+                不再只是直接給答案抄作業。<br>
+                Agent 會像古代哲學家蘇格拉底一樣，針對你的思路步步提問，搭建鷹架（Scaffolding），引導你自己悟出解題靈感！
+              </div>
+            </div>
+            <div class="content-box highlight-cyan">
+              <div class="box-title">📚 2. 終身知識庫超級管家</div>
+              <div class="box-desc">
+                你丟給他幾百頁隨筆與雜亂講義，他主動幫你整理出 74 篇分類分科的知識體系，還能自動出模擬考題幫你測驗弱點。
+              </div>
+            </div>
+            <div class="content-box highlight-gold">
+              <div class="box-title">🎨 3. 一鍵生成互動簡報</div>
+              <div class="box-desc">
+                就像你現在看到的這份 HTML 簡報，完全是由 AI Agent 直接讀取 Wiki 知識庫後，自動排版、自動適配卡片與代碼產生的！
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: 總結與未來思維 -->
+      <section class="slide-item" data-index="10">
+        <div class="slide-header">
+          <div>
+            <div class="slide-category">結語與未來 ➔ 人機協同</div>
+            <div class="slide-title">成為懂得指揮 AI Agent 的超級個體</div>
+            <div class="slide-subtitle">未來的競爭力，不在於你背了多少死知識，而在於你如何定義問題與駕馭 Agent！</div>
+          </div>
+          <div class="slide-badge">全課總結</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="content-box highlight-cyan">
+              <div class="box-title">🚀 核心觀念複習</div>
+              <ul class="styled-list">
+                <li><strong>Agent 核心</strong>：大腦 (LLM) ＋ 感官 ＋ 工具 ＋ 記憶。</li>
+                <li><strong>運作機制</strong>：永遠處於「感知 ➔ 思考 ➔ 行動 ➔ 反思」的 Loop 循環中。</li>
+                <li><strong>超級武器</strong>：Tool Calling（操作現實）與 LLM Wiki（永恆記憶）。</li>
+                <li><strong>極致形態</strong>：Multi-Agent（專家分工合作團隊）。</li>
+              </ul>
+            </div>
+            <div class="content-box highlight-coral">
+              <div class="box-title">💡 給初學者的人工智慧思維指南</div>
+              <ul class="styled-list">
+                <li><strong>人類負責「定義目標與價值判斷」</strong>：決定什麼是真正有意義的任務。</li>
+                <li><strong>Agent 負責「拆解規劃與快速執行」</strong>：承擔所有重複繁瑣的工作流。</li>
+                <li><strong>保持批判與審查</strong>：永遠檢驗結果，建立人機協同（Human-in-the-loop）的良性信任。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="content-box highlight-gold">
+            <div class="box-desc" style="text-align: center; font-size: 1.05rem;">
+              🎉 <strong>恭喜你！</strong> 你已經完全掌握了 AI Agents 的最底層原理與未來趨勢！
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 底部控制器 -->
+  <footer>
+    <div class="controls">
+      <button class="btn" id="prevBtn" disabled>◀ 上一頁</button>
+      <button class="btn" id="nextBtn">下一頁 ▶</button>
+    </div>
+    <div class="dots-container" id="dotsContainer"></div>
+    <div class="kbd-hint">
+      提示：可用鍵盤 <kbd>←</kbd> <kbd>→</kbd> 或 <kbd>Space</kbd> 切換
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressText = document.getElementById('slideProgress');
+    const dotsContainer = document.getElementById('dotsContainer');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentIndex);
+      });
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentIndex);
+      });
+      progressText.textContent = `第 ${currentIndex + 1} / ${totalSlides} 頁`;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === totalSlides - 1;
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentIndex = index;
+        updateSlide();
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlide();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalSlides - 1) {
+        currentIndex++;
+        updateSlide();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        if (currentIndex < totalSlides - 1) {
+          currentIndex++;
+          updateSlide();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlide();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

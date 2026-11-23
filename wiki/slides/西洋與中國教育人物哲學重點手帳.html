@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西洋與中國教育人物哲學重點手帳 🏛️ | 國小教甄 LLM Wiki</title>
+  <style>
+    :root {
+      /* 日系典雅莫蘭迪人文調色盤 */
+      --bg-cream: #FAF9F6;
+      --card-white: #FFFFFF;
+      --primary-clay: #7A5C58;
+      --primary-light: #EFE9E7;
+      --primary-soft: #F7F4F2;
+      --morandi-blue: #6B7FD7;
+      --morandi-blue-light: #EBF0FF;
+      --morandi-green: #588157;
+      --morandi-green-light: #EDF5EE;
+      --morandi-gold: #BC6C25;
+      --morandi-gold-light: #FDF4EB;
+      --morandi-purple: #8B5FBF;
+      --morandi-purple-light: #F4EEFB;
+      --text-dark: #2B2D42;
+      --text-sub: #5C677D;
+      --border-soft: #E5DFD9;
+      --shadow-pastel: 0 16px 36px -10px rgba(122, 92, 88, 0.22);
+      --shadow-card: 0 6px 16px -3px rgba(43, 45, 66, 0.08);
+      --radius-large: 26px;
+      --radius-card: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #F4EEFB 0%, #FAF9F6 50%, #EDF5EE 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* 投影片舞台容器 (16:9 自適應) */
+    .deck-stage {
+      width: 100%;
+      max-width: 1120px;
+      aspect-ratio: 16 / 9;
+      min-height: 640px;
+      background: var(--card-white);
+      border-radius: var(--radius-large);
+      box-shadow: var(--shadow-pastel);
+      border: 3px solid #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 頂部導覽膠囊條 */
+    .deck-topbar {
+      margin: 16px 28px 0 28px;
+      background: linear-gradient(90deg, #7A5C58 0%, #9C7A75 100%);
+      border-radius: 9999px;
+      padding: 9px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(122, 92, 88, 0.28);
+      flex-shrink: 0;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .topbar-pill {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 3px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* 進度指示條 */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 4px;
+      background: rgba(122, 92, 88, 0.1);
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-clay);
+      width: 10%;
+      transition: width 0.35s ease;
+    }
+
+    /* 投影片內容滑動主體 */
+    .deck-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 32px 42px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(40px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    /* 標題與副標題排版 */
+    .slide-header {
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary-clay);
+      background: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .slide-desc {
+      font-size: 14.5px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* 卡片與欄位排版 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--card-white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px -4px rgba(122, 92, 88, 0.15);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 700;
+      background: var(--primary-light);
+      color: var(--primary-clay);
+    }
+
+    .point-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--text-dark);
+    }
+
+    .point-item {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .point-item::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary-clay);
+    }
+
+    /* 精美表格樣式 */
+    .slide-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .slide-table th {
+      background: var(--primary-soft);
+      color: var(--primary-clay);
+      font-weight: 700;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1.5px solid var(--border-soft);
+    }
+
+    .slide-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-dark);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .slide-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .slide-table tr:nth-child(even) {
+      background: #FAFAFA;
+    }
+
+    /* 底部操作控制列 */
+    .deck-footer {
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-soft);
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .nav-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-control {
+      background: var(--primary-soft);
+      border: 1px solid var(--border-soft);
+      color: var(--text-dark);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-control:hover:not(:disabled) {
+      background: var(--primary-clay);
+      color: #FFFFFF;
+      border-color: var(--primary-clay);
+    }
+
+    .btn-control:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .page-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--border-soft);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .page-dot.active {
+      background: var(--primary-clay);
+      width: 22px;
+      border-radius: 9999px;
+    }
+
+    /* 封面專屬排版 */
+    .cover-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .cover-icon {
+      font-size: 56px;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 8px rgba(122, 92, 88, 0.2));
+    }
+
+    .cover-title {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-sub {
+      font-size: 18px;
+      color: var(--primary-clay);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .cover-badges {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .cover-badge {
+      background: var(--primary-soft);
+      color: var(--primary-clay);
+      border: 1px solid var(--border-soft);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* 響應式調整 */
+    @media (max-width: 900px) {
+      .deck-stage {
+        aspect-ratio: auto;
+        min-height: 720px;
+      }
+      .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 主舞台 -->
+  <div class="deck-stage" id="deckStage">
+    
+    <!-- 頂部膠囊導覽條 -->
+    <div class="deck-topbar">
+      <div class="topbar-left">
+        <svg style="width:18px; height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        <span>西洋與中國教育人物哲學重點手帳</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-pill">國小教甄初試首選</span>
+        <span id="pageIndicator">1 / 10</span>
+      </div>
+    </div>
+
+    <!-- 進度條 -->
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <!-- 投影片視窗主體 -->
+    <div class="deck-viewport">
+
+      <!-- Slide 1: 封面 -->
+      <div class="slide cover-slide active" data-index="0">
+        <div class="cover-icon">🏛️</div>
+        <h1 class="cover-title">西洋與中國教育人物哲學重點手帳</h1>
+        <p class="cover-sub">穿透中西教育思想史 ‧ 鎖定初試高頻題眼與之父秒殺庫</p>
+        <div class="cover-badges">
+          <span class="cover-badge">希臘三哲</span>
+          <span class="cover-badge">近代教育四巨匠</span>
+          <span class="cover-badge">平民與進步主義</span>
+          <span class="cover-badge">先秦儒墨道法</span>
+          <span class="cover-badge">宋明理學心學</span>
+          <span class="cover-badge">《學記》精髓</span>
+        </div>
+        <p style="font-size: 14px; color: var(--text-sub);">
+          按鍵盤 <kbd style="background:#eee; padding:2px 6px; border-radius:4px;">←</kbd> <kbd style="background:#eee; padding:2px 6px; border-radius:4px;">→</kbd> 鍵，或點擊下方按鈕開始翻頁複習！
+        </p>
+      </div>
+
+      <!-- Slide 2: 單元導航架構 -->
+      <div class="slide" data-index="1">
+        <div class="slide-header">
+          <span class="slide-tag">🗺️ 核心知識地圖</span>
+          <h2 class="slide-title">教育人物與哲學 6 大必背模組</h2>
+          <p class="slide-desc">初試選擇題出題率超過 90% 的核心概念版塊</p>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="background:var(--morandi-purple-light); border-color:#D8C4EE;">
+            <div class="card-title"><span>🏛️</span><span>模組一：希臘古典先哲</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>蘇格拉底</strong>：產婆術、道德哲學之父</li>
+              <li class="point-item"><strong>柏拉圖</strong>：觀念論之祖、哲學王、洞穴寓言</li>
+              <li class="point-item"><strong>亞里斯多德</strong>：實在論、中庸、博雅教育</li>
+            </ul>
+          </div>
+          <div class="card" style="background:var(--morandi-blue-light); border-color:#C7D6FC;">
+            <div class="card-title"><span>📜</span><span>模組二：近代教育學四匠</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>康門紐斯</strong>：近代教育之父、泛智論</li>
+              <li class="point-item"><strong>盧梭</strong>：自然主義、消極教育、愛彌兒</li>
+              <li class="point-item"><strong>康德</strong>：批判哲學、無上命令、首開講堂</li>
+              <li class="point-item"><strong>赫爾巴特</strong>：教育學之父、四段/五段教學</li>
+            </ul>
+          </div>
+          <div class="card" style="background:var(--morandi-green-light); border-color:#C3E0C8;">
+            <div class="card-title"><span>🌱</span><span>模組三：平民與兒童中心</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>裴斯泰洛齊</strong>：國民教育之父、3H教育</li>
+              <li class="point-item"><strong>福祿貝爾</strong>：幼稚教育之父、恩物花園</li>
+              <li class="point-item"><strong>杜威</strong>：實用主義、做中學、五步思維</li>
+            </ul>
+          </div>
+          <div class="card" style="background:var(--morandi-gold-light); border-color:#F5D4B2;">
+            <div class="card-title"><span>🏮</span><span>模組四：先秦諸子人性論</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>孔子</strong>：有教無類、啟發教學（不憤不啟）</li>
+              <li class="point-item"><strong>孟子</strong>：性本善、求其放心、四端</li>
+              <li class="point-item"><strong>荀子</strong>：性本惡、化性起偽、青出於藍</li>
+              <li class="point-item"><strong>墨子</strong>：素絲說（環境決定論）、兼愛非攻</li>
+            </ul>
+          </div>
+          <div class="card" style="background:var(--primary-soft); border-color:var(--border-soft);">
+            <div class="card-title"><span>☯️</span><span>模組五：宋明理學 vs. 心學</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>朱熹</strong>：性即理、格物窮理、道問學、知先行後</li>
+              <li class="point-item"><strong>陸九淵</strong>：心即理、宇宙即吾心、尊德性</li>
+              <li class="point-item"><strong>王陽明</strong>：心外無物、致良知、知行合一</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#FFF9E6; border-color:#FFE8A3;">
+            <div class="card-title"><span>🎯</span><span>模組六：典籍與之父秒殺庫</span></div>
+            <ul class="point-list">
+              <li class="point-item"><strong>《學記》</strong>：預時孫摩四大教學原則</li>
+              <li class="point-item"><strong>近代學制</strong>：壬寅、癸卯、壬戌六三三</li>
+              <li class="point-item"><strong>父稱對照</strong>：教育之父 vs. 近代之父 vs. 幼教之父</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: 古希臘三哲 -->
+      <div class="slide" data-index="2">
+        <div class="slide-header">
+          <span class="slide-tag">🏛️ 西洋古典哲學</span>
+          <h2 class="slide-title">古希臘三哲：蘇格拉底、柏拉圖、亞里斯多德</h2>
+          <p class="slide-desc">貫穿兩千年的西方理性、觀念論與實在論之源頭</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">
+              <span>蘇格拉底</span>
+              <span class="card-badge">道德哲學之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>教育法：產婆術（問答法）</strong>：諷刺（自承無知）➔ 助產 ➔ 歸納 ➔ 定義。</li>
+              <li class="point-item"><strong>核心名言</strong>：「知即德（行惡源於無知）」、「未經省察的人生不值得活」。</li>
+              <li class="point-item"><strong>教育特徵</strong>：啟發內在靈魂神聖真理，反對智者派收費灌輸。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>柏拉圖</span>
+              <span class="card-badge">觀念論之祖</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>《理想國》與哲學王</strong>：首倡哲學家治國的理想國度。</li>
+              <li class="point-item"><strong>靈魂三分說（正義）</strong>：
+                <br>• 理性（金）➔ 智慧 ➔ 統治者
+                <br>• 意志（銀）➔ 勇敢 ➔ 軍人
+                <br>• 慾望（銅鐵）➔ 節制 ➔ 生產者
+              </li>
+              <li class="point-item"><strong>洞穴寓言</strong>：教育是「心靈的轉向」，走出陰暗洞穴看見理型陽光。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>亞里斯多德</span>
+              <span class="card-badge">實在論之祖</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>哲學體系</strong>：身心一元論、四因說（質料/形式/動力/目的）。</li>
+              <li class="point-item"><strong>德行倫理與中庸</strong>：
+                <br>• 理智德行（教學養成）
+                <br>• 道德德行（習慣養成，過猶不及取中庸）
+              </li>
+              <li class="point-item"><strong>博雅教育（Liberal）</strong>：歷史上最早提倡博雅教育，逍遙學派創立萊錫姆學園。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: 近代教育學奠基四巨匠 -->
+      <div class="slide" data-index="3">
+        <div class="slide-header">
+          <span class="slide-tag">📜 近代教育革命</span>
+          <h2 class="slide-title">近代教育奠基四巨匠：康門紐斯、盧梭、康德、赫爾巴特</h2>
+          <p class="slide-desc">確立教育專著、兒童本位、無上命令與科學教育學體系</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">
+              <span>康門紐斯（Comenius）</span>
+              <span class="card-badge">近代教育學之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>巨著</strong>：《大教育學》（首部系統專書）、《世界圖解》（首本插畫教科書）。</li>
+              <li class="point-item"><strong>泛智論</strong>：「把一切知識教給所有人類」，實物直觀教學先驅。</li>
+              <li class="point-item"><strong>人生四季四級學校（各6年）</strong>：母育學校（感官）➔ 國語學校（小學）➔ 拉丁語學校（中學）➔ 大學與旅行。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>盧梭（Rousseau）</span>
+              <span class="card-badge">自然主義之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>巨著《愛彌兒》</strong>：「出自造物主之手都是完好的，一到人手裡全變壞了」。</li>
+              <li class="point-item"><strong>消極教育（12歲前）</strong>：保護兒童心靈免受偏見污染，重視身體與感官自然開展。</li>
+              <li class="point-item"><strong>自然後果懲罰</strong>：體驗行為招致的物理後果，而非成人體罰。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>康德（Kant）</span>
+              <span class="card-badge">批評主義之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>教育名言</strong>：「人是唯一必須受教育的受造物」、「感性無知性則盲，知性無感性則空」。</li>
+              <li class="point-item"><strong>直言命令（無上命令）</strong>：出於純粹義務感的道德行為（如誠實），絕非為了外在利益的假言命令。</li>
+              <li class="point-item"><strong>歷史地位</strong>：首位在德國大學（柯尼斯堡）正式開講「教育學」的哲學家。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>赫爾巴特（Herbart）</span>
+              <span class="card-badge">教育學之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>《普通教育學》（1806）</strong>：使教育學成為獨立科學；以倫理學定目的、心理學定方法。</li>
+              <li class="point-item"><strong>統覺論（Apperception）</strong>：新觀念必須與心靈中既有的「統覺團」結合同化。</li>
+              <li class="point-item"><strong>教學歷程進階</strong>：赫爾巴特四段（明聯系方）➔ 萊恩五段（預備、提示、比較、概括、應用）。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: 平民普及與進步主義 -->
+      <div class="slide" data-index="4">
+        <div class="slide-header">
+          <span class="slide-tag">🌱 平民教育與現代思潮</span>
+          <h2 class="slide-title">平民普及與進步主義：裴斯泰洛齊、福祿貝爾、杜威</h2>
+          <p class="slide-desc">把母愛、遊戲與真實生活體驗注入初等教育</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">
+              <span>裴斯泰洛齊</span>
+              <span class="card-badge">國民教育之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>稱號</strong>：小學教育鼻祖、孤兒之父、教育界的基督。</li>
+              <li class="point-item"><strong>3H 均衡教育</strong>：
+                <br>• Head（頭 / 智育）
+                <br>• Heart（心 / 德育，最核心）
+                <br>• Hand（手 / 勞育與體能）
+              </li>
+              <li class="point-item"><strong>教育心理化與社會化</strong>：要素教育（數、形、字）、實物教學、《林哈特與葛楚德》。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>福祿貝爾</span>
+              <span class="card-badge">幼稚教育之父</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>創設第一所幼稚園</strong>：命名 Kindergarten（兒童的花園）。</li>
+              <li class="point-item"><strong>開展說與園丁論</strong>：「教育之道無他，唯愛與榜樣而已」；教師如園丁順應天性呵護。</li>
+              <li class="point-item"><strong>恩物教學（Gifts）</strong>：球體、積木引導神聖宇宙幾何秩序；重視遊戲自我活動。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>杜威（Dewey）</span>
+              <span class="card-badge">實用主義大師</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>三大經典命題</strong>：
+                <br>• 教育即生活（非未來的準備）
+                <br>• 教育即生長
+                <br>• 教育即經驗的不斷重組改造
+              </li>
+              <li class="point-item"><strong>做中學（Learning by doing）</strong>：無外在目的；學校即微型社會。</li>
+              <li class="point-item"><strong>問題探究五步驟</strong>：疑難 ➔ 界定 ➔ 假設 ➔ 推論 ➔ 驗證。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: 西洋教育哲學五大流派速查 -->
+      <div class="slide" data-index="5">
+        <div class="slide-header">
+          <span class="slide-tag">⚡ 哲學流派大對決</span>
+          <h2 class="slide-title">西洋教育哲學五大流派極速對照</h2>
+          <p class="slide-desc">初試選擇題最核心的本體論與教學法判準</p>
+        </div>
+        <div style="flex:1; overflow-y:auto;">
+          <table class="slide-table">
+            <thead>
+              <tr>
+                <th style="width:18%;">流派名稱</th>
+                <th style="width:20%;">代表人物</th>
+                <th style="width:30%;">世界本體與知識觀</th>
+                <th style="width:32%;">教育核心目的與教學法</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>觀念論（唯心論）</strong></td>
+                <td>柏拉圖、康德、黑格爾</td>
+                <td>精神與理型是宇宙本體，真理永恆先驗存在</td>
+                <td>心靈轉向、追求真善美、蘇格拉底產婆術、經典博雅閱讀</td>
+              </tr>
+              <tr>
+                <td><strong>實在論（唯實論）</strong></td>
+                <td>亞里斯多德、赫爾巴特、康門紐斯</td>
+                <td>客觀物質世界獨立存在，感官經驗為知識之源</td>
+                <td>適應客觀世界、五段教學法、實物直觀教學、感官訓練</td>
+              </tr>
+              <tr>
+                <td><strong>自然主義</strong></td>
+                <td>盧梭、斯賓塞</td>
+                <td>自然至善，人為社會多罪惡扭曲</td>
+                <td>順應天性、消極教育（12歲前）、自然後果懲罰、兒童中心</td>
+              </tr>
+              <tr>
+                <td><strong>實用主義</strong></td>
+                <td>杜威、詹姆士、克伯屈</td>
+                <td>真理在行動中有效解決問題，經驗動態流變</td>
+                <td>做中學、教育即生活、無外在目的、問題探究與合作活動</td>
+              </tr>
+              <tr>
+                <td><strong>存在主義</strong></td>
+                <td>沙特、祈克果、布伯、雅斯培</td>
+                <td>存在先於本質，人透過自由選擇決定自我</td>
+                <td>真誠性（Authenticity）、我與你（I-Thou）關係、挫折與生命教育</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Slide 7: 先秦諸子人性論與教育主張 -->
+      <div class="slide" data-index="6">
+        <div class="slide-header">
+          <span class="slide-tag">🏮 中國古代教育源流</span>
+          <h2 class="slide-title">先秦諸子人性論與教育主張對照</h2>
+          <p class="slide-desc">人性論是中國歷代教育目的與教學策略的根本依歸</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">
+              <span>孔子（至聖先師）</span>
+              <span class="card-badge">有教無類</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>人性觀</strong>：「性相近也，習相遠也。」</li>
+              <li class="point-item"><strong>啟發教學法</strong>：「不憤不啟，不悱不發；舉一隅不以三隅反，則不復也。」</li>
+              <li class="point-item"><strong>教育精髓</strong>：因材施教、學思並重、四教（文、行、忠、信）。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>孟子（亞聖）</span>
+              <span class="card-badge">性善論</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>四心四端</strong>：惻隱（仁）、羞惡（義）、辭讓（禮）、是非（智）。</li>
+              <li class="point-item"><strong>教育目的</strong>：明人倫（父子、君臣、夫婦、長幼、朋友五倫）。</li>
+              <li class="point-item"><strong>教育方法</strong>：「求其放心」（找回迷失沈淪之善心）、存心養性、浩然之氣。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>荀子（後儒集大成）</span>
+              <span class="card-badge">性惡論</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>性惡本質</strong>：「人之性惡，其善者偽也（偽指後天人為修養）。」</li>
+              <li class="point-item"><strong>教育功能</strong>：<strong>化性起偽、積偽成聖</strong>；外在禮法制度約束。</li>
+              <li class="point-item"><strong>《勸學篇》</strong>：「青出於藍而勝於藍」、「蓬生麻中不扶而直」、隆禮重法尊師。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span>墨子（墨家始祖）</span>
+              <span class="card-badge">素絲說</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>環境論先驅</strong>：「染於蒼則蒼，染於黃則黃，所入者變，其色亦變。」</li>
+              <li class="point-item"><strong>教育風格：強說人</strong>（主動積極宣講），反對儒家被動坐等問道。</li>
+              <li class="point-item"><strong>教育內容</strong>：兼愛非攻、實用科技（農工、力學、幾何、兵法防禦）。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: 宋明理學 vs. 心學 -->
+      <div class="slide" data-index="7">
+        <div class="slide-header">
+          <span class="slide-tag">☯️ 宋明儒學爭鳴</span>
+          <h2 class="slide-title">朱熹程朱理學 vs. 王陽明陸王心學</h2>
+          <p class="slide-desc">道問學與尊德性、格物窮理與致良知之千年辨析</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="background:#FFFDFB;">
+            <div class="card-title">
+              <span>朱熹（程朱理學）</span>
+              <span class="card-badge">道問學 ‧ 格物窮理</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>本體主張：性即理</strong>，天理客觀存在於天地萬物之中（理在氣先）。</li>
+              <li class="point-item"><strong>工夫進路：格物窮理</strong>，由外向內探索事物之理，重博覽經典考據（《四書集注》成科舉欽定教材）。</li>
+              <li class="point-item"><strong>知行觀：知先行後</strong>，「論先後知為先，論輕重行為重」；知與行分為兩截。</li>
+              <li class="point-item"><strong>後世評價</strong>：系統嚴謹，但易流於「支離破碎、泥古不化」。</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#FAF8FC;">
+            <div class="card-title">
+              <span>王陽明（陸王心學）</span>
+              <span class="card-badge">尊德性 ‧ 致良知</span>
+            </div>
+            <ul class="point-list">
+              <li class="point-item"><strong>本體主張：心即理</strong>，「心外無物，心外無理」，良知本自具足。</li>
+              <li class="point-item"><strong>工夫進路：致良知</strong>，由內向外反求諸己、去除私欲；《訓蒙大意》倡導順應兒童嬉遊天性。</li>
+              <li class="point-item"><strong>知行觀：知行合一</strong>，「知是行之始，行是知之成」、「真知即所以為行」，知行本為一體。</li>
+              <li class="point-item"><strong>後世評價</strong>：直指人心，但流弊易流於「狂禪空疏、束書不觀」。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: 《學記》四大教學原則 -->
+      <div class="slide" data-index="8">
+        <div class="slide-header">
+          <span class="slide-tag">📖 經典教育專著</span>
+          <h2 class="slide-title">《學記》四大教學原則（大學之法：預時孫摩）</h2>
+          <p class="slide-desc">世界上最早的教育哲學專著，國小教甄選擇題超高頻常客</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="border-left: 5px solid var(--morandi-purple);">
+            <div class="card-title"><span>📘</span><span>預（豫）—— 預防原則</span></div>
+            <p style="font-size:13.5px; font-weight:700; color:var(--primary-clay); margin-bottom:6px;">「禁於未發之謂豫」</p>
+            <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">在學生的不良思想、行為習慣或認知偏差尚未萌發前，及早建立常規防患於未然。</p>
+          </div>
+          <div class="card" style="border-left: 5px solid var(--morandi-gold);">
+            <div class="card-title"><span>⏰</span><span>時 —— 及時原則</span></div>
+            <p style="font-size:13.5px; font-weight:700; color:var(--morandi-gold); margin-bottom:6px;">「當其可之謂時」</p>
+            <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">抓住學童身心發展的關鍵期與學習敏感期及時施教；「時過然後學，則勤苦而難成」。</p>
+          </div>
+          <div class="card" style="border-left: 5px solid var(--morandi-blue);">
+            <div class="card-title"><span>🪜</span><span>孫（遜）—— 循序原則</span></div>
+            <p style="font-size:13.5px; font-weight:700; color:var(--morandi-blue); margin-bottom:6px;">「不陵節而施之謂孫」</p>
+            <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">依據認知結構與學科邏輯循序漸進，切忌揠苗助長或跨級跳躍（陵節）。</p>
+          </div>
+          <div class="card" style="border-left: 5px solid var(--morandi-green);">
+            <div class="card-title"><span>🤝</span><span>摩 —— 觀摩原則</span></div>
+            <p style="font-size:13.5px; font-weight:700; color:var(--morandi-green); margin-bottom:6px;">「相觀而善之謂摩」</p>
+            <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">引導同儕互相切磋砥礪、觀摩長處；「獨學而無友，則孤陋而寡聞」。</p>
+          </div>
+        </div>
+        <div style="margin-top:14px; background:var(--primary-soft); padding:10px 16px; border-radius:10px; font-size:12.5px; display:flex; gap:16px;">
+          <span>💡 <strong>君子之教</strong>：「道而弗牽，強而弗抑，開而弗達」（引導、激勵、啟發）</span>
+          <span>⚠️ <strong>教學大忌</strong>：「呻吟佔畢」（只顧死記硬背、照本宣科）</span>
+        </div>
+      </div>
+
+      <!-- Slide 10: 教育之父秒殺庫 -->
+      <div class="slide" data-index="9">
+        <div class="slide-header">
+          <span class="slide-tag">🎯 初試必備秒殺庫</span>
+          <h2 class="slide-title">國小教甄「教育之父與重要稱號」對照庫</h2>
+          <p class="slide-desc">考卷上只要出現父稱關鍵字，毫不猶豫精準秒答！</p>
+        </div>
+        <div style="flex:1; overflow-y:auto;">
+          <table class="slide-table">
+            <thead>
+              <tr>
+                <th style="width:25%;">尊號 / 父稱</th>
+                <th style="width:25%;">代表學者</th>
+                <th style="width:50%;">教甄防混淆陷阱密碼</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>教育學之父</strong></td>
+                <td><strong>赫爾巴特</strong>（Herbart）</td>
+                <td>《普通教育學》，以心理學與倫理學為基石。（注意題目無「近代」二字）</td>
+              </tr>
+              <tr>
+                <td><strong>近代教育學之父</strong></td>
+                <td><strong>康門紐斯</strong>（Comenius）</td>
+                <td>泛智論、《大教育學》與插畫《世界圖解》。（題幹有「近代」必選他）</td>
+              </tr>
+              <tr>
+                <td><strong>國民教育之父 ‧ 小學鼻祖</strong></td>
+                <td><strong>裴斯泰洛齊</strong>（Pestalozzi）</td>
+                <td>孤兒之父、3H 教育、教育心理化、《林哈特與葛楚德》。</td>
+              </tr>
+              <tr>
+                <td><strong>幼稚教育之父</strong></td>
+                <td><strong>福祿貝爾</strong>（Fröbel）</td>
+                <td>創辦第一所幼稚園 Kindergarten、恩物 Gifts、愛與榜樣。</td>
+              </tr>
+              <tr>
+                <td><strong>自然主義之父 ‧ 哥白尼</strong></td>
+                <td><strong>盧梭</strong>（Rousseau）</td>
+                <td>兒童本位、《愛彌兒》、消極教育、自然後果懲罰。</td>
+              </tr>
+              <tr>
+                <td><strong>道德哲學之父 ‧ 西方孔子</strong></td>
+                <td><strong>蘇格拉底</strong>（Socrates）</td>
+                <td>產婆法（問答法）、知即德、自認無知。</td>
+              </tr>
+              <tr>
+                <td><strong>科學實驗心理學之父</strong></td>
+                <td><strong>馮德</strong>（Wundt）</td>
+                <td>1879 年德國萊比錫大學創立世界第一個心理學實驗室。</td>
+              </tr>
+              <tr>
+                <td><strong>教育心理學之父</strong></td>
+                <td><strong>桑代克</strong>（Thorndike）</td>
+                <td>迷籠實驗、試誤說、學習三大定律（準備律、練習律、效果律）。</td>
+              </tr>
+              <tr>
+                <td><strong>智力測驗之父</strong></td>
+                <td><strong>比奈</strong>（Binet）</td>
+                <td>1905 年比西智力量表、心理年齡（MA）。</td>
+              </tr>
+              <tr>
+                <td><strong>教育社會學之父</strong></td>
+                <td><strong>涂爾幹</strong>（Durkheim）</td>
+                <td>有機連帶 vs 機械連帶、集體意識、社會化。（社會學之父為孔德）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部操作列 -->
+    <div class="deck-footer">
+      <div class="nav-btn-group">
+        <button class="btn-control" id="prevBtn" onclick="prevSlide()">
+          <svg style="width:16px; height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>上一頁</span>
+        </button>
+        <button class="btn-control" id="nextBtn" onclick="nextSlide()">
+          <span>下一頁</span>
+          <svg style="width:16px; height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 分頁圓點導覽 -->
+      <div class="page-dots" id="dotsContainer"></div>
+
+      <!-- 全螢幕切換 -->
+      <button class="btn-control" id="fullscreenBtn" onclick="toggleFullScreen()">
+        <svg style="width:15px; height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+        <span>全螢幕</span>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const pageIndicator = document.getElementById('pageIndicator');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+
+    // 建立分頁圓點
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = `page-dot ${i === 0 ? 'active' : ''}`;
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDeck() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+
+      const dots = document.querySelectorAll('.page-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentSlide);
+      });
+
+      pageIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+
+      prevBtn.disabled = (currentSlide === 0);
+      nextBtn.disabled = (currentSlide === totalSlides - 1);
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateDeck();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    // 鍵盤左右箭頭事件監聽
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    // 全螢幕切換
+    function toggleFullScreen() {
+      const stage = document.getElementById('deckStage');
+      if (!document.fullscreenElement) {
+        stage.requestFullscreen().catch(err => {
+          alert(`無法進入全螢幕：${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    updateDeck();
+  </script>
+</body>
+</html>
